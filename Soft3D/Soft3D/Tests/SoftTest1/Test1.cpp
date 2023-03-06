@@ -11,3 +11,10 @@ void Test1::Init() {
 
 
 }
+
+void Test1::Render() {
+
+	//printf("Rendering entity.\n");
+	ent1->render();
+
+}

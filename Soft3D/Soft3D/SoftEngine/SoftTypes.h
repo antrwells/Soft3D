@@ -1,5 +1,5 @@
 #pragma once
-
+#include <math.h>
 struct v3d
 {
 	float x, y, z;
@@ -58,6 +58,50 @@ struct color {
 		g = p_g;
 		b = p_b;
 		a = p_a;
+	}
+
+};
+
+struct matrix4 {
+
+	float m[4][4] = { 0 };
+	matrix4() {
+
+	}
+
+	void toProjection(float fov,float aspect,float znear, float zfar) {
+
+		float fovRad = 1.0f / tanf(fov * 0.5f / 180.0f * 3.14159f);
+
+		m[0][0] = aspect * fovRad;
+		m[1][1] = fovRad;
+		m[2][2] = zfar / (zfar - znear);
+		m[3][2] = (-zfar * znear) / (zfar - znear);
+		m[2][3] = 1.0f;
+		m[3][3] = 0.0f;
+
+	}
+
+	v3d multiply(v3d& v)
+	{
+
+		v3d r;
+
+		r.x = v.x * m[0][0] + v.y * m[1][0] + v.z * m[2][0] + m[3][0];
+		r.y = v.x * m[0][1] + v.y * m[1][1] + v.z * m[2][1] + m[3][1];
+		r.z = v.x * m[0][2] + v.y * m[1][2] + v.z * m[2][2] + m[3][2];
+
+		float w = v.x * m[0][3] + v.y * m[1][3] + v.z * m[2][3] + m[3][3];
+
+		if (w != 0.0f)
+		{
+			r.x /= w;
+			r.y /= w;
+			r.z /= w;
+		}
+
+		return r;
+
 	}
 
 };

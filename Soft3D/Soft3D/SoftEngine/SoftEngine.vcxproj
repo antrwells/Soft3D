@@ -152,6 +152,7 @@
     <ClInclude Include="nodeEntity.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="pixelMap.h" />
+    <ClInclude Include="renderer.h" />
     <ClInclude Include="SoftApp.h" />
     <ClInclude Include="SoftTypes.h" />
   </ItemGroup>
@@ -167,6 +168,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="pixelMap.cpp" />
+    <ClCompile Include="renderer.cpp" />
     <ClCompile Include="SoftApp.cpp" />
     <ClCompile Include="SoftEngine.cpp" />
     <ClCompile Include="SoftTypes.cpp" />

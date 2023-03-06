@@ -14,6 +14,7 @@ public:
     };
 
     void Init();
+    void Render();
 
 private:
 

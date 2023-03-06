@@ -22,6 +22,13 @@ public:
 
 	static SoftApp* m_This;
 
+	int getWidth() {
+		return m_Width;
+	}
+	int getHeight() {
+		return m_Height;
+	}
+
 private:
 
 	GLFWwindow* m_Window;
