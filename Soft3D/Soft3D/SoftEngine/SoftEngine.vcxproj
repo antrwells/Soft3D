@@ -149,10 +149,13 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Importer.h" />
     <ClInclude Include="mesh3D.h" />
+    <ClInclude Include="node.h" />
+    <ClInclude Include="nodeCamera.h" />
     <ClInclude Include="nodeEntity.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="pixelMap.h" />
     <ClInclude Include="renderer.h" />
+    <ClInclude Include="sceneGraph.h" />
     <ClInclude Include="SoftApp.h" />
     <ClInclude Include="SoftTypes.h" />
   </ItemGroup>
@@ -160,6 +163,8 @@
     <ClCompile Include="..\src\gl.c" />
     <ClCompile Include="Importer.cpp" />
     <ClCompile Include="mesh3D.cpp" />
+    <ClCompile Include="node.cpp" />
+    <ClCompile Include="nodeCamera.cpp" />
     <ClCompile Include="nodeEntity.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -169,6 +174,7 @@
     </ClCompile>
     <ClCompile Include="pixelMap.cpp" />
     <ClCompile Include="renderer.cpp" />
+    <ClCompile Include="sceneGraph.cpp" />
     <ClCompile Include="SoftApp.cpp" />
     <ClCompile Include="SoftEngine.cpp" />
     <ClCompile Include="SoftTypes.cpp" />

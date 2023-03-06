@@ -3,6 +3,7 @@
 #include <vector>
 
 class renderer;
+class nodeCamera;
 
 class mesh3D
 {
@@ -11,7 +12,7 @@ public:
 	mesh3D();
 	void AddVertex(vertex vert);
 	void AddTriangle(triangle tri);
-	void render();
+	void render(matrix4 mat,nodeCamera* cam);
 
 private:
 

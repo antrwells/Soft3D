@@ -1,6 +1,7 @@
 #include "mesh3D.h"
 #include "SoftApp.h"
 #include "renderer.h"
+#include "nodeCamera.h"
 
 mesh3D::mesh3D() {
 
@@ -20,7 +21,7 @@ void mesh3D::AddTriangle(triangle tri) {
 
 }
 
-void mesh3D::render() {
+void mesh3D::render(matrix4 mat,nodeCamera* cam) {
 
 	auto bb = SoftApp::m_This->getBackBuffer();
 	auto db = SoftApp::m_This->getDepthBuffer();
@@ -28,7 +29,7 @@ void mesh3D::render() {
 	for (int tri = 0; tri < triangles.size(); tri++) {
 
 		auto t = triangles[tri];
-		m_Renderer->renderTriangle(vertices[t.v0],vertices[t.v1],vertices[t.v2], color(1, 1, 1, 1));
+		m_Renderer->renderTriangle(vertices[t.v0],vertices[t.v1],vertices[t.v2],mat,cam, color(1, 1, 1, 1));
 
 	}
 

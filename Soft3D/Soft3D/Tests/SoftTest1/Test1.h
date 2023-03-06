@@ -2,6 +2,7 @@
 #include <SoftApp.h>
 
 class nodeEntity;
+class sceneGraph;
 
 class Test1 :
     public SoftApp
@@ -19,6 +20,7 @@ public:
 private:
 
     nodeEntity* ent1;
+    sceneGraph* g1;
 
 };
 
