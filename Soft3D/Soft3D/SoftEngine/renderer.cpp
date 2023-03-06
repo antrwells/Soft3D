@@ -2,6 +2,7 @@
 #include "SoftApp.h"
 #include "pixelMap.h"
 #include "nodeCamera.h"
+#include "nodeLight.h"
  renderer::renderer() {
 
 	 m_Projection = matrix4();
@@ -9,7 +10,7 @@
 
 }
 
-void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 mat,nodeCamera* cam, color col) {
+void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 mat,nodeCamera* cam,nodeLight* light, color col) {
 
 	int sw = SoftApp::m_This->getWidth();
 	int sh = SoftApp::m_This->getHeight();
@@ -21,9 +22,16 @@ void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 mat,nodeCame
 	pv1.pos = mat.multiply(v1.pos);
 	pv2.pos = mat.multiply(v2.pos);
 
-	pv0.pos.z += 3.0f;
-	pv1.pos.z += 3.0f;
-	pv2.pos.z += 3.0f;
+	v3d camPos = cam->getPos();
+
+	pv0.pos = pv0.pos.minus(camPos);
+	pv1.pos = pv1.pos.minus(camPos);
+	pv2.pos = pv2.pos.minus(camPos);
+
+	//pv0.pos.z += 
+	//pv1.pos.z += 3.0f;
+	//pv2.pos.z += 3.0f;
+
 
 	v3d normal, line1, line2;
 	line1.x = pv1.pos.x - pv0.pos.x;
@@ -42,11 +50,20 @@ void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 mat,nodeCame
 	normal.x /= l;
 	normal.y /= l;
 	normal.z /= l;
-	
-	if (normal.z < 0) {
+	camPos = v3d(0, 0, 0);
+	if ( normal.x * (pv0.pos.x-camPos.x) +
+		 normal.y * (pv0.pos.y-camPos.y) +
+		 normal.z * (pv0.pos.z-(camPos.z)) < 0.0)
+	{
 
+		v3d light_dir = light->getPos();
+		light_dir.x = -light_dir.x;
+		light_dir.y = -light_dir.y;
+		light_dir.z = -light_dir.z;
+		light_dir.normalize();
 
-
+		float dp = normal.dot(light_dir);
+		printf("DP:%f\n", dp);
 
 
 		pv0.pos = m_Projection.multiply(pv0.pos);
@@ -65,6 +82,7 @@ void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 mat,nodeCame
 		pv2.pos.y *= 0.5f * (float)sh;
 
 
+		col = col.mult(dp);
 
 		drawLine(pv0.pos.x, pv0.pos.y, pv1.pos.x, pv1.pos.y, col);
 		drawLine(pv1.pos.x, pv1.pos.y, pv2.pos.x, pv2.pos.y, col);
@@ -113,7 +131,7 @@ void renderer::drawLine(int x1, int y1, int x2, int y2, color col) {
 		for (int i = 0; i < steps; i++) {
 
 			if (xp >= 0 && xp < sw && yp >= 0 && yp < sh) {
-				bb->setPixel(xp, yp, color(1, 1, 1, 1));
+				bb->setPixel(xp, yp,col);
 			}
 
 			xp += xi;

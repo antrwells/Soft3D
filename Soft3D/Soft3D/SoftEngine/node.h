@@ -2,13 +2,15 @@
 #include "SoftTypes.h"
 #include <vector>
 class nodeCamera;
+class nodeLight;
+
 class node
 {
 public:
 	node();
 	void setRotation(float p, float y, float r);
 	
-	void setPosition(float x, float y, float z) {
+	void setPos(float x, float y, float z) {
 		m_Position = v3d(x, y, z);
 	}
 
@@ -26,11 +28,14 @@ public:
 	std::vector<node*> getNodes() {
 		return m_Nodes;
 	}
-	virtual void render(nodeCamera* cam)
+	virtual void render(nodeCamera* cam,nodeLight* light)
 	{
 		for (int i = 0; i < m_Nodes.size(); i++) {
-			m_Nodes[i]->render(cam);
+			m_Nodes[i]->render(cam,light);
 		}
+	}
+	v3d getPos() {
+		return m_Position;
 	}
 
 protected:

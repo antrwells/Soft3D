@@ -3,6 +3,7 @@
 #include "mesh3D.h"
 #include "node.h"
 class nodeCamera;
+class nodeLight;
 
 class nodeEntity : public node
 {
@@ -10,7 +11,7 @@ public:
 
 	nodeEntity();
 	void AddMesh(mesh3D* mesh);
-	void render(nodeCamera* cam);
+	void render(nodeCamera* cam,nodeLight* light);
 
 private:
 

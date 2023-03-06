@@ -4,6 +4,7 @@
 
 class renderer;
 class nodeCamera;
+class nodeLight;
 
 class mesh3D
 {
@@ -12,7 +13,7 @@ public:
 	mesh3D();
 	void AddVertex(vertex vert);
 	void AddTriangle(triangle tri);
-	void render(matrix4 mat,nodeCamera* cam);
+	void render(matrix4 mat,nodeCamera* cam,nodeLight* light);
 
 private:
 

@@ -18,6 +18,34 @@ struct v3d
 		y = p_y;
 		z = p_z;
 	}
+	v3d minus(v3d r) {
+		
+		return v3d(x - r.x, y - r.y, z - r.z);
+
+	}
+
+	void normalize() {
+
+		float l = sqrtf(x * x + y * y + z * z);
+		x /= l;
+		y /= l;
+		z /= l;
+
+
+	}
+
+	float dot(v3d r) {
+
+		return x * r.x + y * r.y + z * r.z;
+
+	}
+
+	v3d multi(float v)
+	{
+		return v3d(x * v, y * v, z * v);
+
+	}
+
 };;
 
 struct vertex {
@@ -64,6 +92,11 @@ struct color {
 		g = p_g;
 		b = p_b;
 		a = p_a;
+	}
+
+	color mult(float v)
+	{
+		return color(r * v, g * v, b * v, a * v);
 	}
 
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include "SoftTypes.h"
 #include "nodeCamera.h"
+#include "nodeLight.h"
 #include <vector>
 
 class sceneGraph
@@ -12,11 +13,21 @@ public:
 		m_RootNode->addNode(n);
 	}
 	void render();
+	nodeCamera* getCam() {
+		return m_Cam;
+	}
+	void addLight(nodeLight* light) {
+		m_Lights.push_back(light);
+	}
+	std::vector<nodeLight*> getLights() {
+		return m_Lights;
+	}
 
 private:
 
 	nodeCamera* m_Cam;
 	node* m_RootNode;
+	std::vector<nodeLight*> m_Lights;
 
 };
 

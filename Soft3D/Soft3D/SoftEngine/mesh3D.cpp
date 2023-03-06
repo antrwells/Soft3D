@@ -21,7 +21,7 @@ void mesh3D::AddTriangle(triangle tri) {
 
 }
 
-void mesh3D::render(matrix4 mat,nodeCamera* cam) {
+void mesh3D::render(matrix4 mat,nodeCamera* cam,nodeLight* l) {
 
 	auto bb = SoftApp::m_This->getBackBuffer();
 	auto db = SoftApp::m_This->getDepthBuffer();
@@ -29,7 +29,7 @@ void mesh3D::render(matrix4 mat,nodeCamera* cam) {
 	for (int tri = 0; tri < triangles.size(); tri++) {
 
 		auto t = triangles[tri];
-		m_Renderer->renderTriangle(vertices[t.v0],vertices[t.v1],vertices[t.v2],mat,cam, color(1, 1, 1, 1));
+		m_Renderer->renderTriangle(vertices[t.v0],vertices[t.v1],vertices[t.v2],mat,cam,l, color(1, 1, 1, 1));
 
 	}
 
