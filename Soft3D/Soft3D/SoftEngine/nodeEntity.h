@@ -6,6 +6,7 @@ class nodeEntity
 public:
 
 	void AddMesh(mesh3D* mesh);
+	void render();
 
 private:
 

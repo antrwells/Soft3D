@@ -36,6 +36,9 @@
     <ClInclude Include="nodeEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="pixelMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SoftEngine.cpp">
@@ -60,6 +63,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="nodeEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pixelMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

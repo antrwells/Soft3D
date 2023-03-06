@@ -7,7 +7,8 @@ public:
 
 	void AddVertex(vertex vert);
 	void AddTriangle(triangle tri);
-	
+	void render();
+
 private:
 
 	std::vector<vertex> vertices;

@@ -2,4 +2,9 @@
 C:\Soft3D\Soft3D\SoftEngine\Importer.cpp(28,20): warning C4018: '<': signed/unsigned mismatch
 C:\Soft3D\Soft3D\SoftEngine\Importer.cpp(36,29): warning C4018: '<': signed/unsigned mismatch
 C:\Soft3D\Soft3D\SoftEngine\Importer.cpp(53,25): warning C4018: '<': signed/unsigned mismatch
+  SoftApp.cpp
+C:\Soft3D\Soft3D\SoftEngine\SoftApp.cpp(69,31): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+  mesh3D.cpp
+  nodeEntity.cpp
+  Generating Code...
   SoftEngine.vcxproj -> C:\Soft3D\Soft3D\x64\Debug\SoftEngine.lib

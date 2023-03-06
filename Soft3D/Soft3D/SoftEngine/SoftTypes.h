@@ -37,6 +37,31 @@ struct triangle {
 
 };
 
+struct color {
+
+	float r, g, b, a;
+	color() {
+		r = g = b = 0.0f;
+		a = 1.0f;
+	}
+	color(float p_r, float p_g, float p_b) {
+	
+		r = p_r;
+		g = p_g;
+		b = p_b;
+		a = 1.0f;
+
+	}
+	color(float p_r, float p_g, float p_b, float p_a)
+	{
+		r = p_r;
+		g = p_g;
+		b = p_b;
+		a = p_a;
+	}
+
+};
+
 class SoftTypes
 {
 };
