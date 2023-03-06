@@ -1,5 +1,13 @@
 #pragma once
 #include <math.h>
+#include <cmath>
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+double deg2rad(double degrees) {
+	return degrees * M_PI / 180.0;
+}
+
 struct v3d
 {
 	float x, y, z;
@@ -67,6 +75,29 @@ struct matrix4 {
 	float m[4][4] = { 0 };
 	matrix4() {
 
+	}
+
+	void toRotX(float ang) {
+
+		ang = deg2rad(ang);
+		m[0][0] = 1.0f;
+		m[1][1] = cosf(ang);
+		m[1][2] = sinf(ang);
+		m[2][1] = -sinf(ang);
+		m[2][2] = cosf(ang);
+		m[3][3] = 1.0f;
+
+	}
+
+	void toRotZ(float ang) {
+
+		ang = deg2rad(ang);
+		m[0][0] = cosf(ang);
+		m[0][1] = sinf(ang);
+		m[1][0] = -sinf(ang);
+		m[1][1] = cosf(ang);
+		m[2][2] = 1;
+		m[3][3] = 1;
 	}
 
 	void toProjection(float fov,float aspect,float znear, float zfar) {
