@@ -1,4 +1,1 @@
-﻿  Test1.cpp
-C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(113,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(125,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  SoftTest1.vcxproj -> C:\Soft3D\Soft3D\x64\Debug\SoftTest1.exe
+﻿  SoftTest1.vcxproj -> C:\Soft3D\Soft3D\x64\Debug\SoftTest1.exe
