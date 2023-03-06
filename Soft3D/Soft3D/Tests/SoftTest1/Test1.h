@@ -9,7 +9,7 @@ class Test1 :
 {
 public:
 
-    Test1() : SoftApp(1024, 769, "Soft3D - Test 1")
+    Test1() : SoftApp(640,480, "Soft3D - Test 1")
     {
 
     };
