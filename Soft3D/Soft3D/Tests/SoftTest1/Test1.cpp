@@ -34,6 +34,9 @@ void Test1::Render() {
 	
 	
 	cam->setRotation(camX,camY, 0);
+
+	cam->move(gameInput::moveX * 0.1, 0, gameInput::moveY * 0.1);
+
 	//ent1->setPos(50, 0,200);
 	ang2 = 0;
 

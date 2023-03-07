@@ -45,6 +45,21 @@ public:
 		return m_Position;
 	}
 
+	v3d transform(v3d v)
+	{
+
+		return m_Rotation.multiply(v);
+
+
+	}
+
+	void move(float mx, float my, float mz) {
+
+		v3d f = transform(v3d(mx, my, mz));
+		m_Position = m_Position.add(f);
+
+	}
+
 protected:
 	matrix4 m_Rotation;
 	v3d m_Position;

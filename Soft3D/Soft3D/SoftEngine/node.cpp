@@ -17,8 +17,8 @@ void node::setRotation(float p, float y, float r) {
 	matrix4 rot;
 	rot.toIdent();
 
-	rot = rot.multi(ym);
 	rot = rot.multi(pm);
+	rot = rot.multi(ym);
 
 	m_Rotation = rot;
 

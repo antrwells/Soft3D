@@ -33,6 +33,22 @@ struct v3d
 
 	}
 
+	static v3d intersectPlane(v3d plane_p, v3d plane_n, v3d line_start, v3d line_end)
+	{
+
+		plane_n = plane_n.normalized();
+		float plane_d = -plane_n.dot(plane_p);
+		float ad = line_start.dot(plane_n);
+		float bd = line_end.dot(plane_n);
+		float t = (-plane_d - ad) / (bd - ad);
+		v3d lineStartToEnd = line_end.minus(line_start);
+		v3d lineToIntersect = lineStartToEnd.multi(t);
+		return line_start.add(lineToIntersect);
+
+	}
+
+	//static 
+
 	v3d div(v3d r) {
 
 		return v3d(x / r.x, y / r.y, z / r.z);
@@ -290,6 +306,16 @@ struct matrix4 {
 	}
 
 };
+
+struct rtri
+{
+	v3d p0, p1, p2;
+	color c0, c1, c2;
+};
+
+int Triangle_ClipAgainstPlane(v3d plane_p, v3d plane_n, rtri& in_tri, rtri& out_tri1, rtri& out_tri2);
+
+
 
 class SoftTypes
 {

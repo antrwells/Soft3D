@@ -59,6 +59,7 @@ void SoftApp::Run() {
 	int frames = 0;
 
 	double xpos, ypos;
+	glfwSetCursorPos(m_Window, 320, 320);
 	glfwGetCursorPos(m_Window, &xpos, &ypos);
 	gameInput::mouseX = xpos;
 	gameInput::mouseY = ypos;
@@ -72,9 +73,30 @@ void SoftApp::Run() {
 		float lastY = gameInput::mouseY;
 		gameInput::mouseX = xpos;
 		gameInput::mouseY = ypos;
-		gameInput::mouseDeltaX = xpos - lastX;
-		gameInput::mouseDeltaY = ypos - lastY;
+		gameInput::mouseDeltaX = xpos - 320;
+		gameInput::mouseDeltaY = ypos - 320;
+		glfwSetCursorPos(m_Window,320,320);
 
+
+		float mx, my;
+		mx = my = 0;
+		if (glfwGetKey(m_Window, GLFW_KEY_W))
+		{
+			my = 1;
+		}
+		else if (glfwGetKey(m_Window, GLFW_KEY_S))
+		{
+			my = -1;
+		}
+		if (glfwGetKey(m_Window, GLFW_KEY_A)) {
+			mx = -1;
+		}
+		else if (glfwGetKey(m_Window, GLFW_KEY_D))
+		{
+			mx = 1;
+		}
+		gameInput::moveX = mx;
+		gameInput::moveY = my;
 
 		Update();
 		int time = clock();

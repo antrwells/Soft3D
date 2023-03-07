@@ -4,6 +4,7 @@
 #include "nodeCamera.h"
 #include "nodeLight.h"
 #include <algorithm>
+#include <list>
 
  renderer::renderer() {
 
@@ -23,6 +24,13 @@ void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 mat,nodeCame
 	pv0.pos = mat.multiply(v0.pos);
 	pv1.pos = mat.multiply(v1.pos);
 	pv2.pos = mat.multiply(v2.pos);
+
+	rtri triv;
+	triv.p0 = pv0.pos;
+	triv.p1 = pv1.pos;
+	triv.p2 = pv2.pos;
+
+
 
 	v3d camPos = cam->getPos();
 
@@ -56,7 +64,74 @@ void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 mat,nodeCame
 
 		float dp = std::max(0.1f, light_dir.dot(normal));
 	
+		int nClippedTriangles = 0;
+		rtri clipped[2];
+		nClippedTriangles = Triangle_ClipAgainstPlane({ 0.0f, 0.0f, 0.1f }, { 0.0f, 0.0f, 1.0f }, triv, clipped[0], clipped[1]);
 
+		for (int n = 0; n < nClippedTriangles; n++)
+		{
+			rtri tp;
+			// Project triangles from 3D --> 2D
+			tp.p0 = m_Projection.multiply(clipped[n].p0);
+			tp.p1 = m_Projection.multiply(clipped[n].p1);
+			tp.p2 = m_Projection.multiply(clipped[n].p2);
+			//triProjected.col = clipped[n].col;
+			//triProjected.sym = clipped[n].sym;
+
+
+			tp.p0 = tp.p0.div(tp.p0.w);
+			tp.p1 = tp.p1.div(tp.p1.w);
+			tp.p2 = tp.p2.div(tp.p2.w);
+
+
+			tp.p0.x *= -1.0f;
+			tp.p1.x *= -1.0f;
+			tp.p2.x *= -1.0f;
+			tp.p0.y *= -1.0f;
+			tp.p1.y *= -1.0f;
+			tp.p2.y *= -1.0f;
+
+
+			v3d vOffset(1, 1, 0);
+			
+			tp.p0 = tp.p0.add(vOffset);
+			tp.p1 = tp.p1.add(vOffset);
+			tp.p2 = tp.p2.add(vOffset);
+
+			//pv0.pos = pv0.pos.add(vOffset);
+			//pv1.pos = pv1.pos.add(vOffset);
+			//pv2.pos = pv2.pos.add(vOffset);
+
+			//pv0.pos.x += 1.0f; pv0.pos.y += 1.0f;
+			//pv1.pos.x += 1.0f; pv1.pos.y += 1.0f;
+		//	pv2.pos.x += 1.0f; pv2.pos.y += 1.0f;
+
+			tp.p0.x *= 0.5f * (float)sw;
+			tp.p0.y *= 0.5f * (float)sh;
+			tp.p1.x *= 0.5f * (float)sw;
+			tp.p1.y *= 0.5f * (float)sh;
+			tp.p2.x *= 0.5f * (float)sw;
+			tp.p2.y *= 0.5f * (float)sh;
+
+			col = col.mult(dp);
+
+			tp.c0 = col;
+			render_tris.push_back(tp);
+
+			//fillTriangle(tp.p0.x, tp.p0.y, tp.p1.x, tp.p1.y, tp.p2.x, tp.p2.y, col);
+			//col = color(0, 0, 0, 0);
+
+			
+
+		
+
+	
+				
+
+		}
+
+
+		/*
 		pv0.pos = m_Projection.multiply(pv0.pos);
 		pv1.pos = m_Projection.multiply(pv1.pos);
 		pv2.pos = m_Projection.multiply(pv2.pos);
@@ -80,12 +155,13 @@ void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 mat,nodeCame
 		pv1.pos.y *= 0.5f * (float)sh;
 		pv2.pos.x *= 0.5f * (float)sw;
 		pv2.pos.y *= 0.5f * (float)sh;
+		*/
 
 
-		col = col.mult(dp);
+		//col = col.mult(dp);
 
-		fillTriangle(pv0.pos.x, pv0.pos.y, pv1.pos.x, pv1.pos.y, pv2.pos.x, pv2.pos.y, col);
-		col = color(0, 0, 0, 0);
+		//fillTriangle(pv0.pos.x, pv0.pos.y, pv1.pos.x, pv1.pos.y, pv2.pos.x, pv2.pos.y, col);
+		//col = color(0, 0, 0, 0);
 		//drawLine(pv0.pos.x, pv0.pos.y, pv1.pos.x, pv1.pos.y, col);
 
 		//drawLine(pv1.pos.x, pv1.pos.y, pv2.pos.x, pv2.pos.y, col);
@@ -293,3 +369,82 @@ void renderer::drawLine(int x1, int y1, int x2, int y2, color col) {
 		}
 	}
 }
+
+
+
+void renderer::beginRender() {
+
+	render_tris.clear();
+
+}
+
+void renderer::endRender() {
+	int sw = SoftApp::m_This->getWidth();
+	int sh = SoftApp::m_This->getHeight();
+
+//	for (int i = 0; i < render_tris.size(); i++) {
+	for(auto &triToRaster : render_tris)
+	{
+
+
+		//  ensure we only test new triangles generated against planes
+		rtri clipped[2];
+		std::list<rtri> listTriangles;
+
+		// Add initial triangle
+		listTriangles.push_back(triToRaster);
+		int nNewTriangles = 1;
+
+		for (int p = 0; p < 4; p++)
+		{
+			int nTrisToAdd = 0;
+			while (nNewTriangles > 0)
+			{
+				// Take triangle from front of queue
+				rtri test = listTriangles.front();
+				listTriangles.pop_front();
+				nNewTriangles--;
+
+				// Clip it against a plane. We only need to test each 
+				// subsequent plane, against subsequent new triangles
+				// as all triangles after a plane clip are guaranteed
+				// to lie on the inside of the plane. I like how this
+				// comment is almost completely and utterly justified
+				switch (p)
+				{
+				case 0:	nTrisToAdd = Triangle_ClipAgainstPlane({ 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, test, clipped[0], clipped[1]); break;
+				case 1:	nTrisToAdd = Triangle_ClipAgainstPlane({ 0.0f, (float)sh - 1, 0.0f }, { 0.0f, -1.0f, 0.0f }, test, clipped[0], clipped[1]); break;
+				case 2:	nTrisToAdd = Triangle_ClipAgainstPlane({ 0.0f, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f }, test, clipped[0], clipped[1]); break;
+				case 3:	nTrisToAdd = Triangle_ClipAgainstPlane({ (float)sw- 1, 0.0f, 0.0f }, { -1.0f, 0.0f, 0.0f }, test, clipped[0], clipped[1]); break;
+				}
+
+				// Clipping may yield a variable number of triangles, so
+				// add these new ones to the back of the queue for subsequent
+				// clipping against next planes
+				for (int w = 0; w < nTrisToAdd; w++)
+					listTriangles.push_back(clipped[w]);
+			}
+			nNewTriangles = listTriangles.size();
+		}
+
+
+		// Draw the transformed, viewed, clipped, projected, sorted, clipped triangles
+		for (auto& tp : listTriangles)
+		{
+
+			color col = tp.c0;
+			fillTriangle(tp.p0.x, tp.p0.y, tp.p1.x, tp.p1.y, tp.p2.x, tp.p2.y, col);
+			//FillTriangle(t.p[0].x, t.p[0].y, t.p[1].x, t.p[1].y, t.p[2].x, t.p[2].y, t.sym, t.col);
+			//DrawTriangle(t.p[0].x, t.p[0].y, t.p[1].x, t.p[1].y, t.p[2].x, t.p[2].y, PIXEL_SOLID, FG_BLACK);
+		}
+
+		//auto tp = render_tris[i];
+		//color col = tp.c0;
+		//fillTriangle(tp.p0.x, tp.p0.y, tp.p1.x, tp.p1.y, tp.p2.x, tp.p2.y, col);
+
+
+	}
+
+}
+
+std::vector<rtri> renderer::render_tris;
