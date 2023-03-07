@@ -38,7 +38,10 @@ pixelMap::pixelMap(int w, int h,int channels)
 }
 
 void pixelMap::setPixel(int x, int y, color col) {
-
+	if (y < 0 || x < 0 || x >= m_Width || y >= m_Height)
+	{
+		return;
+	}
 	if (m_Channels == 3) {
 
 		int loc = (y * m_Width *m_Channels )+ (x * m_Channels);

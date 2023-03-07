@@ -2,7 +2,7 @@
 
 #include "pixelMap.h"
 #include <time.h>
-
+#include "gameInput.h"
 SoftApp::SoftApp(int width, int height, std::string app) {
 
 	if (!glfwInit())
@@ -37,6 +37,10 @@ SoftApp::SoftApp(int width, int height, std::string app) {
 	glLoadIdentity();
 	glOrtho(0, m_Width, m_Height, 0, 0, 1.0f);
 	m_This = this;
+	gameInput::mouseX = 0;
+	gameInput::mouseY = 0;
+	gameInput::mouseDeltaX = 0;
+	gameInput::mouseDeltaY = 1;
 
 }
 
@@ -53,7 +57,24 @@ void SoftApp::Run() {
 	int next_fps = clock() + 1000;
 	int fps = 0;
 	int frames = 0;
+
+	double xpos, ypos;
+	glfwGetCursorPos(m_Window, &xpos, &ypos);
+	gameInput::mouseX = xpos;
+	gameInput::mouseY = ypos;
+
 	while (true) {
+
+		//double xpos, ypos;
+		glfwGetCursorPos(m_Window, &xpos, &ypos);
+
+		float lastX = gameInput::mouseX;
+		float lastY = gameInput::mouseY;
+		gameInput::mouseX = xpos;
+		gameInput::mouseY = ypos;
+		gameInput::mouseDeltaX = xpos - lastX;
+		gameInput::mouseDeltaY = ypos - lastY;
+
 
 		Update();
 		int time = clock();

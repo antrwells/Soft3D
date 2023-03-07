@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="gameInput.h" />
     <ClInclude Include="Importer.h" />
     <ClInclude Include="mesh3D.h" />
     <ClInclude Include="node.h" />
@@ -162,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\gl.c" />
+    <ClCompile Include="gameInput.cpp" />
     <ClCompile Include="Importer.cpp" />
     <ClCompile Include="mesh3D.cpp" />
     <ClCompile Include="node.cpp" />

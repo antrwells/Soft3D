@@ -3,13 +3,14 @@
 
 class nodeEntity;
 class sceneGraph;
+class nodeCamera;
 
 class Test1 :
     public SoftApp
 {
 public:
 
-    Test1() : SoftApp(640,480, "Soft3D - Test 1")
+    Test1() : SoftApp(1024,768, "Soft3D - Test 1")
     {
 
     };
@@ -21,6 +22,6 @@ private:
 
     nodeEntity* ent1;
     sceneGraph* g1;
-
+    nodeCamera* cam;
 };
 

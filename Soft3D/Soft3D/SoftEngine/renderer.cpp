@@ -3,10 +3,12 @@
 #include "pixelMap.h"
 #include "nodeCamera.h"
 #include "nodeLight.h"
+#include <algorithm>
+
  renderer::renderer() {
 
 	 m_Projection = matrix4();
-	 m_Projection.toProjection(90, (float)SoftApp::m_This->getHeight() / (float)SoftApp::m_This->getWidth(), 0.1, 100);
+	 m_Projection.toProjection(70, (float)SoftApp::m_This->getHeight() / (float)SoftApp::m_This->getWidth(), 0.1, 100);
 
 }
 
@@ -24,9 +26,9 @@ void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 mat,nodeCame
 
 	v3d camPos = cam->getPos();
 
-	pv0.pos = pv0.pos.minus(camPos);
-	pv1.pos = pv1.pos.minus(camPos);
-	pv2.pos = pv2.pos.minus(camPos);
+//	pv0.pos = pv0.pos.minus(camPos);
+//	pv1.pos = pv1.pos.minus(camPos);
+//	pv2.pos = pv2.pos.minus(camPos);
 
 	//pv0.pos.z += 
 	//pv1.pos.z += 3.0f;
@@ -34,26 +36,16 @@ void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 mat,nodeCame
 
 
 	v3d normal, line1, line2;
-	line1.x = pv1.pos.x - pv0.pos.x;
-	line1.y = pv1.pos.y - pv0.pos.y;
-	line1.z = pv1.pos.z - pv0.pos.z;
 
-	line2.x = pv2.pos.x - pv0.pos.x;
-	line2.y = pv2.pos.y - pv0.pos.y;
-	line2.z = pv2.pos.z - pv0.pos.z;
+	line1 = pv1.pos.minus(pv0.pos);
+	line2 = pv2.pos.minus(pv0.pos);
+	normal = line1.cross(line2);
 
-	normal.x = line1.y * line2.z - line1.z * line2.y;
-	normal.y = line1.z * line2.x - line1.x * line2.z;
-	normal.z = line1.x * line2.y - line1.y * line2.x;
+	normal.normalize();
 
-	float l = sqrtf(normal.x * normal.x + normal.y * normal.y + normal.z * normal.z);
-	normal.x /= l;
-	normal.y /= l;
-	normal.z /= l;
 	camPos = v3d(0, 0, 0);
-	if ( normal.x * (pv0.pos.x-camPos.x) +
-		 normal.y * (pv0.pos.y-camPos.y) +
-		 normal.z * (pv0.pos.z-(camPos.z)) < 0.0)
+	v3d camRay = pv0.pos.minus(camPos);
+	if (normal.dot(camRay)<0.0f)
 	{
 
 		v3d light_dir = light->getPos();
@@ -62,16 +54,25 @@ void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 mat,nodeCame
 		light_dir.z = -light_dir.z;
 		light_dir.normalize();
 
-		float dp = normal.dot(light_dir);
+		float dp = std::max(0.1f, light_dir.dot(normal));
 	
 
 		pv0.pos = m_Projection.multiply(pv0.pos);
 		pv1.pos = m_Projection.multiply(pv1.pos);
 		pv2.pos = m_Projection.multiply(pv2.pos);
 
-		pv0.pos.x += 1.0f; pv0.pos.y += 1.0f;
-		pv1.pos.x += 1.0f; pv1.pos.y += 1.0f;
-		pv2.pos.x += 1.0f; pv2.pos.y += 1.0f;
+		pv0.pos = pv0.pos.div(pv0.pos.w);
+		pv1.pos = pv1.pos.div(pv1.pos.w);
+		pv2.pos = pv2.pos.div(pv2.pos.w);
+
+		v3d vOffset(1, 1, 0);
+		pv0.pos = pv0.pos.add(vOffset);
+		pv1.pos = pv1.pos.add(vOffset);
+		pv2.pos = pv2.pos.add(vOffset);
+
+		//pv0.pos.x += 1.0f; pv0.pos.y += 1.0f;
+		//pv1.pos.x += 1.0f; pv1.pos.y += 1.0f;
+	//	pv2.pos.x += 1.0f; pv2.pos.y += 1.0f;
 
 		pv0.pos.x *= 0.5f * (float)sw;
 		pv0.pos.y *= 0.5f * (float)sh;
@@ -85,10 +86,10 @@ void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 mat,nodeCame
 
 		fillTriangle(pv0.pos.x, pv0.pos.y, pv1.pos.x, pv1.pos.y, pv2.pos.x, pv2.pos.y, col);
 		col = color(0, 0, 0, 0);
-		drawLine(pv0.pos.x, pv0.pos.y, pv1.pos.x, pv1.pos.y, col);
+		//drawLine(pv0.pos.x, pv0.pos.y, pv1.pos.x, pv1.pos.y, col);
 
-		drawLine(pv1.pos.x, pv1.pos.y, pv2.pos.x, pv2.pos.y, col);
-		drawLine(pv2.pos.x, pv2.pos.y, pv0.pos.x, pv0.pos.y, col);
+		//drawLine(pv1.pos.x, pv1.pos.y, pv2.pos.x, pv2.pos.y, col);
+		//drawLine(pv2.pos.x, pv2.pos.y, pv0.pos.x, pv0.pos.y, col);
 
 	}
 

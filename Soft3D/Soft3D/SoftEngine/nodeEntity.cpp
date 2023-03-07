@@ -19,14 +19,18 @@ float ang = 0;
 
 void nodeEntity::render(nodeCamera* cam,nodeLight* light) {
 
-	ang = ang + 1;
-	setRotation(ang, 0, 0);
+
 
 	for (int i = 0; i < m_Meshes.size(); i++) {
 
 		auto mesh = m_Meshes[i];
 
-		mesh->render(getRotationMat(),cam,light);
+		auto model_mat = getWorldMat();
+		auto cam_mat = cam->getWorldMat();
+
+		auto final_mat = model_mat.multi(cam_mat);
+
+		mesh->render(final_mat,cam,light);
 
 	}
 	for (int i = 0; i < m_Nodes.size(); i++) {

@@ -54,6 +54,9 @@
     <ClInclude Include="nodeLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="gameInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SoftEngine.cpp">
@@ -96,6 +99,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="nodeLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gameInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

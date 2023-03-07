@@ -1,29 +1,18 @@
 ﻿  renderer.cpp
-C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(113,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(125,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(9,115): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(86,78): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(86,67): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(86,56): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(86,45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(86,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(86,23): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(88,52): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(88,41): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(88,30): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(88,19): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(90,52): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(90,41): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(90,30): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(90,19): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(91,52): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(91,41): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(91,30): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(91,19): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(268,14): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(271,14): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(280,7): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(162,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(174,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(186,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(11,115): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(87,78): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(87,67): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(87,56): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(87,45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(87,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(87,23): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(269,14): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(272,14): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(281,7): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(287,22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(287,18): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(282,7): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(288,22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(288,18): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   SoftEngine.vcxproj -> C:\Soft3D\Soft3D\x64\Debug\SoftEngine.lib

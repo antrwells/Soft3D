@@ -17,6 +17,13 @@ public:
 	matrix4 getRotationMat() {
 		return m_Rotation;
 	}
+	virtual matrix4 getWorldMat() {
+
+		matrix4 trans;
+		trans.toTrans(m_Position.x, m_Position.y, m_Position.z);
+		return getRotationMat().multi(trans);
+
+	}
 	void addNode(node* n) {
 		m_Nodes.push_back(n);
 		n->setRoot(this);
