@@ -160,6 +160,7 @@
     <ClInclude Include="sceneGraph.h" />
     <ClInclude Include="SoftApp.h" />
     <ClInclude Include="SoftTypes.h" />
+    <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\gl.c" />

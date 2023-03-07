@@ -4,6 +4,7 @@
 class nodeEntity;
 class sceneGraph;
 class nodeCamera;
+class pixelMap;
 
 class Test1 :
     public SoftApp
@@ -23,5 +24,6 @@ private:
     nodeEntity* ent1;
     sceneGraph* g1;
     nodeCamera* cam;
+    pixelMap* tex1;
 };
 

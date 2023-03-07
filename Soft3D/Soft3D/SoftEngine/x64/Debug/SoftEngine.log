@@ -1,6 +1,13 @@
-﻿  SoftTypes.cpp
+﻿  pixelMap.cpp
 C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(178,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(190,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(202,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\SoftTypes.cpp(108): warning C4715: 'Triangle_ClipAgainstPlane': not all control paths return a value
+C:\Soft3D\Soft3D\SoftEngine\pixelMap.cpp(143,16): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\pixelMap.cpp(143,13): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\pixelMap.cpp(145,20): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\pixelMap.cpp(145,15): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\pixelMap.cpp(147,22): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\pixelMap.cpp(147,15): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\pixelMap.cpp(149,18): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\pixelMap.cpp(149,13): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
   SoftEngine.vcxproj -> C:\Soft3D\Soft3D\x64\Debug\SoftEngine.lib

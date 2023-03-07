@@ -5,6 +5,7 @@
 class renderer;
 class nodeCamera;
 class nodeLight;
+class pixelMap;
 
 class mesh3D
 {
@@ -14,12 +15,15 @@ public:
 	void AddVertex(vertex vert);
 	void AddTriangle(triangle tri);
 	void render(matrix4 mat,nodeCamera* cam,nodeLight* light);
-
+	void setColorMap(pixelMap* map) {
+		m_ColorMap = map;
+	}
 private:
 
 	std::vector<vertex> vertices;
 	std::vector<triangle> triangles;
 	renderer* m_Renderer;
+	pixelMap* m_ColorMap = nullptr;
 
 };
 

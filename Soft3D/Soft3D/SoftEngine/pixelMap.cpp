@@ -1,6 +1,19 @@
 #include "pixelMap.h"
 #include "SoftTypes.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+pixelMap::pixelMap(std::string path) {
 
+	m_Data  = (char*)stbi_load(path.c_str(), &m_Width, &m_Height, &m_Channels, 0);
+	if (m_Data == NULL) {
+		printf("Error in loading the image\n");
+		exit(1);
+	}
+	else {
+		printf("Opened pixmap properly.\n");
+	}
+
+}
 
 pixelMap::pixelMap(int w, int h,int channels) 
 {
@@ -139,4 +152,22 @@ void pixelMap::Display(int x, int y, int w, int h) {
 	glEnd();
 
 	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+
+void pixelMap::drawPixmap(pixelMap* m, int dx, int dy, color c)
+{
+
+	for (int y = 0; y < m->getHeight(); y++) {
+		
+		int tl = (dy+y) * m_Width * m_Channels;
+		tl = tl + dx * m_Channels;
+		memcpy(m_Data + tl, (const void*)(m->getData()+(y*m->getWidth()*m->getChannels())), m->getWidth() * m->getChannels());
+
+
+		//for (int x = 0; x < m->getWidth(); x++) {
+	//		setPixel(dx + x, dy + y, m->getPixel(x, y));
+		//}
+	}
+
 }
