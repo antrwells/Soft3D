@@ -3,15 +3,17 @@
 #include <vector>
 class nodeCamera;
 class nodeLight;
+class pixelMap;
 
 class renderer
 {
 public:
 
 	renderer();
-	void renderTriangle(vertex v0,vertex v1,vertex v2, matrix4 mat,nodeCamera* cam,nodeLight* l, color col);
+	void renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 model_mat,nodeCamera* cam,nodeLight* l,pixelMap* pix, color col);
 	static void drawLine(int x1, int y1, int x2, int y2, color col);
 	static void fillTriangle(int x1, int y1, int x2, int y2, int x3, int y3, color col);
+	static void fillTriangleTex(int x1, int y1,float u1,float v1,float w1, int x2, int y2,float u2,float v2,float w2, int x3, int y3,float u3,float v3,float w3,pixelMap* map, color col);
 	static std::vector<rtri> render_tris;
 	static void beginRender();
 	static void endRender();

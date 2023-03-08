@@ -41,14 +41,15 @@ void Test1::Render() {
 	cam->move(-gameInput::moveX * 0.1, 0, gameInput::moveY * 0.1);
 
 	//ent1->setPos(50, 0,200);
-	ang2 = 0;
+	
 
 
 	ent1->setRotation(ang2*2, ang2, 0);
 	g1->render();
 
 	auto bb = SoftApp::getBackBuffer();
-	bb->drawPixmap(tex1, 20, 100, color(1, 1, 1, 1));
+	//bb->drawPixmap(tex1, 20, 100, color(1, 1, 1, 1));
+
 
 
 }

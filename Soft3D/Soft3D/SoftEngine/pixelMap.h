@@ -12,6 +12,7 @@ public:
 	pixelMap(int w, int h,int channels);
 	void setPixel(int x, int y, color col);
 	color getPixel(int x, int y);
+	color getPixUV(float u, float v, float w = 1);
 	void fill(color c);
 	void drawPixmap(pixelMap* m, int x, int y, color c);
 	void Display(int x, int y, int w, int h);

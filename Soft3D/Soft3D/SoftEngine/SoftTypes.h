@@ -1,10 +1,13 @@
 #pragma once
 #include <math.h>
 #include <cmath>
+
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
 double deg2rad(double degrees);
+
+class pixelMap;
 
 struct v3d
 {
@@ -33,14 +36,14 @@ struct v3d
 
 	}
 
-	static v3d intersectPlane(v3d plane_p, v3d plane_n, v3d line_start, v3d line_end)
+	static v3d intersectPlane(v3d plane_p, v3d plane_n, v3d line_start, v3d line_end,float &t)
 	{
 
 		plane_n = plane_n.normalized();
 		float plane_d = -plane_n.dot(plane_p);
 		float ad = line_start.dot(plane_n);
 		float bd = line_end.dot(plane_n);
-		float t = (-plane_d - ad) / (bd - ad);
+		t = (-plane_d - ad) / (bd - ad);
 		v3d lineStartToEnd = line_end.minus(line_start);
 		v3d lineToIntersect = lineStartToEnd.multi(t);
 		return line_start.add(lineToIntersect);
@@ -163,7 +166,11 @@ struct color {
 	{
 		return color(r * v, g * v, b * v, a * v);
 	}
+	color mult(color col) {
 
+		return color(r * col.r, g * col.g, b * col.b, a * col.a);
+
+	}
 };
 
 struct matrix4 {
@@ -310,7 +317,9 @@ struct matrix4 {
 struct rtri
 {
 	v3d p0, p1, p2;
+	v3d t0, t1, t2;
 	color c0, c1, c2;
+	pixelMap* map;
 };
 
 int Triangle_ClipAgainstPlane(v3d plane_p, v3d plane_n, rtri& in_tri, rtri& out_tri1, rtri& out_tri2);

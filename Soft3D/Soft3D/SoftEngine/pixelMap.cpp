@@ -171,3 +171,19 @@ void pixelMap::drawPixmap(pixelMap* m, int dx, int dy, color c)
 	}
 
 }
+
+color pixelMap::getPixUV(float u, float v, float w) {
+
+	float x, y;
+
+	x = u * (float)m_Width;
+	y = v * (float)m_Height;
+
+	if (x < 0) x = 0;
+	if (y < 0) y = 0;
+	if (x >= m_Width) x = m_Width - 1;
+	if (y >= m_Height) y = m_Height - 1;
+
+	return getPixel(x, y);
+
+}

@@ -26,11 +26,11 @@ void nodeEntity::render(nodeCamera* cam,nodeLight* light) {
 		auto mesh = m_Meshes[i];
 
 		auto model_mat = getWorldMat();
-		auto cam_mat = cam->getWorldMat();
+		//auto cam_mat = cam->getWorldMat();
 
-		auto final_mat = model_mat.multi(cam_mat);
+		//auto final_mat = model_mat.multi(cam_mat);
 
-		mesh->render(final_mat,cam,light);
+		mesh->render(model_mat,cam,light);
 
 	}
 	for (int i = 0; i < m_Nodes.size(); i++) {
