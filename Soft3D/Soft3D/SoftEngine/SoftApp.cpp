@@ -4,6 +4,8 @@
 #include "depthBuffer.h"
 #include <time.h>
 #include "gameInput.h"
+#include "AudioSystem.h"
+
 SoftApp::SoftApp(int width, int height, std::string app) {
 
 	if (!glfwInit())
@@ -15,7 +17,7 @@ SoftApp::SoftApp(int width, int height, std::string app) {
 		printf("Created opengl context successfully.\n");
 	}
 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 	GLFWwindow* window = glfwCreateWindow(width, height,app.c_str(), NULL, NULL);
 	m_Window = window;
@@ -42,19 +44,30 @@ SoftApp::SoftApp(int width, int height, std::string app) {
 	gameInput::mouseY = 0;
 	gameInput::mouseDeltaX = 0;
 	gameInput::mouseDeltaY = 1;
+	win_Width = width;
+	win_Height = height;
 
+}
+double lastTime = glfwGetTime(); // initialize the last time to the current time
+
+double getDeltaTime() {
+	double currentTime = glfwGetTime();
+	double deltaTime = currentTime - lastTime;
+	lastTime = currentTime;
+	return deltaTime;
 }
 
 void SoftApp::Run() {
 
-	m_ColorBuffer = new pixelMap(m_Width, m_Height, 3);
-	m_DepthBuffer = new depthBuffer(m_Width, m_Height);
-
+	m_Audio = new AudioSystem;
+	Init();
 	m_ColorBuffer->fill(m_BackColor);
 	//m_DepthBuffer->fill(color(0, 0, 0, 0));
 	m_DepthBuffer->clear();
 
-	Init();
+
+
+
 
 	int next_fps = clock() + 1000;
 	int fps = 0;
@@ -67,6 +80,13 @@ void SoftApp::Run() {
 	gameInput::mouseY = ypos;
 
 	glfwSwapInterval(0);
+
+	int pframe = clock();
+
+	const double UPS = 60.0; // desired updates per second
+	const double TIME_BETWEEN_UPDATES = 1.0 / UPS; // time between updates in seconds
+	double accumulator = 0.0; // time accumulated since the last update
+
 
 	while (true) {
 
@@ -102,7 +122,34 @@ void SoftApp::Run() {
 		gameInput::moveX = mx;
 		gameInput::moveY = my;
 
-		Update();
+
+		//int et = clock() - pframe;
+		//printf("et:%d\n", et);
+		//Update(et);
+		double deltaTime = getDeltaTime(); // get the time since the last frame
+		accumulator += deltaTime;
+		gameInput::anyKeyPressed = false;
+
+		for (int key = GLFW_KEY_SPACE; key <= GLFW_KEY_LAST; key++) {
+			if (glfwGetKey(m_Window, key) == GLFW_PRESS) {
+				// anyKeyPressed = true;
+				gameInput::anyKeyPressed = true;
+				break;
+			}
+		}
+
+		// update the game logic in fixed time steps
+		while (accumulator >= TIME_BETWEEN_UPDATES) {
+			Update(0); // update the game logic
+			if (m_States.size() > 0) {
+
+				auto ts = m_States.top();
+				ts->Update();
+
+			}
+			accumulator -= TIME_BETWEEN_UPDATES;
+		}
+
 		int time = clock();
 		if (time > next_fps)
 		{
@@ -113,7 +160,7 @@ void SoftApp::Run() {
 		}
 		frames++;
 
-		glClearColor(0.3, 0, 0, 1.0f);
+		glClearColor(0, 0, 0, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		m_ColorBuffer->fill(m_BackColor);
 		m_DepthBuffer->clear();
@@ -121,11 +168,36 @@ void SoftApp::Run() {
 
 
 		Render();
-		m_ColorBuffer->Display(0, 0, m_Width, m_Height);
+		if (m_States.size() > 0) {
+
+			auto ts = m_States.top();
+			ts->Render();
+
+		}
+		m_ColorBuffer->Display(0, 0, win_Width, win_Height);
+		glClear(GL_DEPTH_BUFFER_BIT);
+
+		RenderAfter3D();
+		if (m_States.size() > 0) {
+
+			auto ts = m_States.top();
+			ts->RenderAfter3D();
+
+		}
+
 		glfwSwapBuffers(m_Window);
 
 		glfwPollEvents();
 	}
+
+}
+
+void SoftApp::InitRenderer(int w, int h) {
+
+	m_ColorBuffer = new pixelMap(w, h, 3);
+	m_DepthBuffer = new depthBuffer(w,h);
+	m_Width = w;
+	m_Height = h;
 
 }
 

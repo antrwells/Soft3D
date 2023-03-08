@@ -1,33 +1,12 @@
-﻿  renderer.cpp
+﻿  SoftApp.cpp
 C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(185,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(197,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(209,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(14,118): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(313,11): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(314,11): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(358,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(359,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(375,24): warning C4244: '=': conversion from 'float' to 'unsigned char', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(376,24): warning C4244: '=': conversion from 'float' to 'unsigned char', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(377,22): warning C4244: '=': conversion from 'float' to 'unsigned char', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(414,11): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(415,11): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(453,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(454,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(470,24): warning C4244: '=': conversion from 'float' to 'unsigned char', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(471,24): warning C4244: '=': conversion from 'float' to 'unsigned char', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(472,22): warning C4244: '=': conversion from 'float' to 'unsigned char', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(653,14): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(656,14): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(665,7): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(666,7): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(672,22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(672,18): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(735,40): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(745,119): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(745,110): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(745,77): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(745,68): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(745,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\renderer.cpp(745,25): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\SoftApp.cpp(74,22): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\SoftApp.cpp(75,22): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\SoftApp.cpp(93,23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\SoftApp.cpp(94,23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\SoftApp.cpp(95,33): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\SoftApp.cpp(96,33): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\SoftApp.cpp(143,31): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
   SoftEngine.vcxproj -> C:\Soft3D\Soft3D\x64\Release\SoftEngine.lib

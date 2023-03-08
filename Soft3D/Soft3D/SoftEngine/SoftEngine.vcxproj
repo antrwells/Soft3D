@@ -114,7 +114,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>C:\Soft3D\Soft3D\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\core\inc;C:\Soft3D\Soft3D\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -122,8 +122,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Soft3D\Soft3D\packages\AssimpCpp.5.0.1.6\build\native\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\core\lib\x64;C:\Soft3D\Soft3D\packages\AssimpCpp.5.0.1.6\build\native\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -153,10 +153,16 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AppState.h" />
+    <ClInclude Include="AudioSystem.h" />
+    <ClInclude Include="Channel.h" />
+    <ClInclude Include="Color.h" />
     <ClInclude Include="depthBuffer.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="gameInput.h" />
     <ClInclude Include="Importer.h" />
+    <ClInclude Include="kFont.h" />
+    <ClInclude Include="mathhelper.h" />
     <ClInclude Include="mesh3D.h" />
     <ClInclude Include="node.h" />
     <ClInclude Include="nodeCamera.h" />
@@ -164,17 +170,29 @@
     <ClInclude Include="nodeLight.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="pixelMap.h" />
+    <ClInclude Include="QuickDraw.h" />
+    <ClInclude Include="Rect.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="sceneGraph.h" />
+    <ClInclude Include="ShaderEffect.h" />
     <ClInclude Include="SoftApp.h" />
     <ClInclude Include="SoftTypes.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Texture2D.h" />
+    <ClInclude Include="VFile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\gl.c" />
+    <ClCompile Include="AppState.cpp" />
+    <ClCompile Include="AudioSystem.cpp" />
+    <ClCompile Include="Channel.cpp" />
+    <ClCompile Include="Color.cpp" />
     <ClCompile Include="depthBuffer.cpp" />
     <ClCompile Include="gameInput.cpp" />
     <ClCompile Include="Importer.cpp" />
+    <ClCompile Include="kFont.cpp" />
+    <ClCompile Include="mathhelper.cpp" />
     <ClCompile Include="mesh3D.cpp" />
     <ClCompile Include="node.cpp" />
     <ClCompile Include="nodeCamera.cpp" />
@@ -187,11 +205,17 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="pixelMap.cpp" />
+    <ClCompile Include="QuickDraw.cpp" />
+    <ClCompile Include="Rect.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="sceneGraph.cpp" />
+    <ClCompile Include="ShaderEffect.cpp" />
     <ClCompile Include="SoftApp.cpp" />
     <ClCompile Include="SoftEngine.cpp" />
     <ClCompile Include="SoftTypes.cpp" />
+    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="Texture2D.cpp" />
+    <ClCompile Include="VFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -200,6 +224,7 @@
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\glfw.3.3.8\build\native\glfw.targets" Condition="Exists('..\packages\glfw.3.3.8\build\native\glfw.targets')" />
     <Import Project="..\packages\AssimpCpp.5.0.1.6\build\native\AssimpCpp.targets" Condition="Exists('..\packages\AssimpCpp.5.0.1.6\build\native\AssimpCpp.targets')" />
+    <Import Project="..\..\..\HDRemakes\Interceptor\InterceptorHD\packages\glm.0.9.9.800\build\native\glm.targets" Condition="Exists('..\..\..\HDRemakes\Interceptor\InterceptorHD\packages\glm.0.9.9.800\build\native\glm.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -207,5 +232,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\glfw.3.3.8\build\native\glfw.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glfw.3.3.8\build\native\glfw.targets'))" />
     <Error Condition="!Exists('..\packages\AssimpCpp.5.0.1.6\build\native\AssimpCpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\AssimpCpp.5.0.1.6\build\native\AssimpCpp.targets'))" />
+    <Error Condition="!Exists('..\..\..\HDRemakes\Interceptor\InterceptorHD\packages\glm.0.9.9.800\build\native\glm.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\HDRemakes\Interceptor\InterceptorHD\packages\glm.0.9.9.800\build\native\glm.targets'))" />
   </Target>
 </Project>

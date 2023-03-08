@@ -1,5 +1,13 @@
-﻿  Generating code
-  1 of 1012 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+﻿  Test1.cpp
+C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(185,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(197,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(209,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\Tests\SoftTest1\Test1.cpp(34,33): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\Tests\SoftTest1\Test1.cpp(35,33): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\Tests\SoftTest1\Test1.cpp(40,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\Tests\SoftTest1\Test1.cpp(40,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Generating code
+  1 of 1016 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     11 functions had inline decision re-evaluated but remain unchanged
   Finished generating code

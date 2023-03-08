@@ -5,6 +5,8 @@ class nodeEntity;
 class sceneGraph;
 class nodeCamera;
 class pixelMap;
+class QuickDraw;
+class Texture2D;
 
 class Test1 :
     public SoftApp
@@ -17,7 +19,9 @@ public:
     };
 
     void Init();
+    void Update(float et);
     void Render();
+    void RenderAfter3D();
 
 private:
 
@@ -25,5 +29,9 @@ private:
     sceneGraph* g1;
     nodeCamera* cam;
     pixelMap* tex1;
+
+    QuickDraw* m_Draw;
+    Texture2D* m_Title;
+
 };
 

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SoftEngine", "SoftEngine\SoftEngine.vcxproj", "{F9809681-4361-4BAB-A072-E8809C1D565F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SoftTest1", "Tests\SoftTest1\SoftTest1.vcxproj", "{0A13F7E8-0768-43E5-AA24-3A46CDF147A2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "InterceptorHD", "Tests\SoftTest1\SoftTest1.vcxproj", "{0A13F7E8-0768-43E5-AA24-3A46CDF147A2}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F9809681-4361-4BAB-A072-E8809C1D565F} = {F9809681-4361-4BAB-A072-E8809C1D565F}
 	EndProjectSection

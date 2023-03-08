@@ -1,0 +1,19 @@
+auto imp = new Importer;
+	m_Draw = new QuickDraw;
+	m_Title = new Texture2D("data/image/title/mainbg.png");
+
+	auto song = AudioSystem::ThisAudio->LoadSound("data/music/title.mp3");
+	auto chan = AudioSystem::ThisAudio->PlaySound(song);
+
+	ent1 = imp->importEntity("data/head.fbx");
+	g1 = new sceneGraph;
+	g1->addNode(ent1);
+	cam = g1->getCam();
+	cam->setPos(0, 0, -8);
+	cam->setRotation(0, 0, 0);
+	auto l1 = new nodeLight;
+	l1->setPos(0, 0, 3);
+	g1->addLight(l1);
+	tex1 = new pixelMap("data/tex1.png");
+	auto m1 = ent1->getMesh(0);
+	m1->setColorMap(tex1);

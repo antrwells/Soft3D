@@ -95,8 +95,7 @@ void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 model_mat,no
 		light_dir.z = -light_dir.z;
 		light_dir.normalize();
 
-		float dp = light_dir.dot(l_normal);
-		
+		float dp = std::max(0.01f, light_dir.dot(l_normal));
 	
 		int nClippedTriangles = 0;
 		rtri clipped[2];
