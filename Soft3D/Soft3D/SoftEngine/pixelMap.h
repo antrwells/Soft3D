@@ -25,7 +25,7 @@ public:
 	int getChannels() {
 		return m_Channels;
 	}
-	float* getData() {
+	unsigned char* getData() {
 		return m_Data;
 	}
 
@@ -34,7 +34,8 @@ public:
 private:
 
 	int m_Channels = 3;
-	float* m_Data = nullptr;
+	unsigned char* m_Data = nullptr;
+	unsigned char* m_Blank = nullptr;
 	int m_Width = 0;
 	int m_Height = 0;
 	GLuint m_DisplayHandle;

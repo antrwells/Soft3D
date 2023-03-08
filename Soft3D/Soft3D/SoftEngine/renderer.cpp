@@ -95,7 +95,8 @@ void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 model_mat,no
 		light_dir.z = -light_dir.z;
 		light_dir.normalize();
 
-		float dp = std::max(0.1f, light_dir.dot(l_normal));
+		float dp = light_dir.dot(l_normal);
+		
 	
 		int nClippedTriangles = 0;
 		rtri clipped[2];
@@ -238,8 +239,16 @@ void renderer::fillTriangleTex(int x1, int y1, float u1, float v1, float w1, int
 {
 	auto bb = SoftApp::m_This->getBackBuffer();
 	auto db = SoftApp::m_This->getDepthBuffer();
+	float* db_b = db->getData();
+	int db_w = bb->getWidth();
+	unsigned char* bb_b = bb->getData();
 	int sw = SoftApp::m_This->getWidth();
 	int sh = SoftApp::m_This->getHeight();
+	int map_w = map->getWidth();
+	int map_h = map->getHeight();
+	unsigned char* map_b = map->getData();
+	float tr, tg, tb;
+
 	if (y2 < y1)
 	{
 		std::swap(y1, y2);
@@ -337,21 +346,40 @@ void renderer::fillTriangleTex(int x1, int y1, float u1, float v1, float w1, int
 				// b
 				// 
 
-				float pz = ((float)db->getDepth(j, i));
+
+				float pz = db_b[i * db_w + j]; //((float)db->getDepth(j, i));
 			
 				if (tex_w > pz) {
 
-					color texc = map->getPixUV(tex_u / tex_w, tex_v / tex_w);
+				//	color texc = map->getPixUV(tex_u / tex_w, tex_v / tex_w);
 
-				
+					int tx, ty;
 
-					bb->setPixel(j, i,texc.mult(col));
+					tx = (tex_u / tex_w) * map_w;
+					ty = (tex_v / tex_w) * map_h;
 					
-					if (tex_w > 1.0) {
-						tex_w = 1.0;
-					}
-					color dc = color(tex_w, 0, 0, 0);
-					db->setDepth(j, i, tex_w);
+					int tloc = ty * map_w * 3 + (tx * 3);
+
+					tr = map_b[tloc++];
+					tg = map_b[tloc++];
+					tb = map_b[tloc++];
+
+					tr = (tr / 255.0f) * col.r;
+					tg = (tg / 255.0f) * col.g;
+					tb = (tb / 255.0f) * col.b;
+				
+				//	color texc = color(tr / 255.0f, tg / 255.0f, tb / 255.0f);
+						
+					int bloc = (i * sw * 3) + (j * 3);
+
+					bb_b[bloc++] = tr * 255;
+					bb_b[bloc++] = tg * 255;
+					bb_b[bloc] = tb * 255;
+
+			//		bb->setPixel(j, i,texc.mult(col));
+				
+					//db->setDepth(j, i, tex_w);
+					db_b[i * db_w + j] = tex_w;
 
 				}
 				//Draw(j, i, tex->SampleGlyph(tex_u / tex_w, tex_v / tex_w), tex->SampleColour(tex_u / tex_w, tex_v / tex_w));
@@ -417,20 +445,37 @@ void renderer::fillTriangleTex(int x1, int y1, float u1, float v1, float w1, int
 
 				//if (tex_w > pDepthBuffer[i * ScreenWidth() + j])
 			//	{
-				float pz = ((float)db->getDepth(j, i));
+				float pz = db_b[i * db_w + j];
 
 				if (tex_w > pz) {
-					color texc = map->getPixUV(tex_u / tex_w, tex_v / tex_w);
+					int tx, ty;
 
+					tx = (tex_u / tex_w) * map_w;
+					ty = (tex_v / tex_w) * map_h;
 
+					int tloc = ty * map_w * 3 + (tx * 3);
 
-					bb->setPixel(j, i, texc.mult(col));
+					tr = map_b[tloc++];
+					tg = map_b[tloc++];
+					tb = map_b[tloc++];
 
-					if (tex_w > 1.0) {
-						tex_w = 1.0;
-					}
-					color dc = color(tex_w, 0, 0, 0);
-					db->setDepth(j, i, tex_w);
+					tr = (tr / 255.0f) * col.r;
+					tg = (tg / 255.0f) * col.g;
+					tb = (tb / 255.0f) * col.b;
+
+					//	color texc = color(tr / 255.0f, tg / 255.0f, tb / 255.0f);
+
+					int bloc = (i * sw * 3) + (j * 3);
+
+					bb_b[bloc++] = tr * 255;
+					bb_b[bloc++] = tg * 255;
+					bb_b[bloc] = tb * 255;
+
+					//		bb->setPixel(j, i,texc.mult(col));
+
+							//db->setDepth(j, i, tex_w);
+					db_b[i * db_w + j] = tex_w;
+
 
 				}
 				//bb->setPixel(j, i, map->getPixUV(tex_u / tex_w, tex_v / tex_w, 1.0f).mult(col));

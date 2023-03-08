@@ -16,7 +16,7 @@ SoftApp::SoftApp(int width, int height, std::string app) {
 	}
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 	GLFWwindow* window = glfwCreateWindow(width, height,app.c_str(), NULL, NULL);
 	m_Window = window;
 	if (!window)
@@ -114,9 +114,11 @@ void SoftApp::Run() {
 		frames++;
 
 		glClearColor(0.3, 0, 0, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT);
 		m_ColorBuffer->fill(m_BackColor);
 		m_DepthBuffer->clear();
+
+
 
 		Render();
 		m_ColorBuffer->Display(0, 0, m_Width, m_Height);

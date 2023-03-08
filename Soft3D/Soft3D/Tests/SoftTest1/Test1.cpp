@@ -10,7 +10,7 @@ void Test1::Init() {
 
 	auto imp = new Importer;
 
-	ent1 = imp->importEntity("data/ship1.fbx");
+	ent1 = imp->importEntity("data/head.fbx");
 	g1 = new sceneGraph;
 	g1->addNode(ent1);
 	cam = g1->getCam();
