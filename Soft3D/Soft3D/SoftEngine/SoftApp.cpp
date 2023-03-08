@@ -1,6 +1,7 @@
 #include "SoftApp.h"
 
 #include "pixelMap.h"
+#include "depthBuffer.h"
 #include <time.h>
 #include "gameInput.h"
 SoftApp::SoftApp(int width, int height, std::string app) {
@@ -47,10 +48,11 @@ SoftApp::SoftApp(int width, int height, std::string app) {
 void SoftApp::Run() {
 
 	m_ColorBuffer = new pixelMap(m_Width, m_Height, 3);
-	m_DepthBuffer = new pixelMap(m_Width, m_Height, 1);
+	m_DepthBuffer = new depthBuffer(m_Width, m_Height);
 
 	m_ColorBuffer->fill(m_BackColor);
-	m_DepthBuffer->fill(color(0, 0, 0, 0));
+	//m_DepthBuffer->fill(color(0, 0, 0, 0));
+	m_DepthBuffer->clear();
 
 	Init();
 
@@ -63,6 +65,8 @@ void SoftApp::Run() {
 	glfwGetCursorPos(m_Window, &xpos, &ypos);
 	gameInput::mouseX = xpos;
 	gameInput::mouseY = ypos;
+
+	glfwSwapInterval(0);
 
 	while (true) {
 
@@ -112,7 +116,7 @@ void SoftApp::Run() {
 		glClearColor(0.3, 0, 0, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		m_ColorBuffer->fill(m_BackColor);
-		m_DepthBuffer->fill(color(0, 0, 0, 0));
+		m_DepthBuffer->clear();
 
 		Render();
 		m_ColorBuffer->Display(0, 0, m_Width, m_Height);
@@ -129,7 +133,7 @@ pixelMap* SoftApp::getBackBuffer() {
 
 }
 
-pixelMap* SoftApp::getDepthBuffer() {
+depthBuffer* SoftApp::getDepthBuffer() {
 
 	return m_DepthBuffer;
 

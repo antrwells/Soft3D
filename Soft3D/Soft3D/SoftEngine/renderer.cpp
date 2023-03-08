@@ -6,11 +6,12 @@
 #include <algorithm>
 #include <list>
 #include "pixelMap.h"
+#include "depthBuffer.h"
 
  renderer::renderer() {
 
 	 m_Projection = matrix4();
-	 m_Projection.toProjection(70, (float)SoftApp::m_This->getHeight() / (float)SoftApp::m_This->getWidth(), 0.1, 100);
+	 m_Projection.toProjection(70, (float)SoftApp::m_This->getHeight() / (float)SoftApp::m_This->getWidth(), 0.00001, 20);
 
 }
 
@@ -236,6 +237,7 @@ bool isInsideTriangle(int x1, int y1, int x2, int y2, int x3, int y3, int x, int
 void renderer::fillTriangleTex(int x1, int y1, float u1, float v1, float w1, int x2, int y2, float u2, float v2, float w2, int x3, int y3, float u3, float v3, float w3, pixelMap* map, color col)
 {
 	auto bb = SoftApp::m_This->getBackBuffer();
+	auto db = SoftApp::m_This->getDepthBuffer();
 	int sw = SoftApp::m_This->getWidth();
 	int sh = SoftApp::m_This->getHeight();
 	if (y2 < y1)
@@ -334,10 +336,28 @@ void renderer::fillTriangleTex(int x1, int y1, float u1, float v1, float w1, int
 				//{
 				// b
 				// 
-				bb->setPixel(j, i, map->getPixUV(tex_u / tex_w, tex_v / tex_w, 1.0f).mult(col));
+
+				float pz = ((float)db->getDepth(j, i));
+			
+				if (tex_w > pz) {
+
+					color texc = map->getPixUV(tex_u / tex_w, tex_v / tex_w);
+
+				
+
+					bb->setPixel(j, i,texc.mult(col));
+					
+					if (tex_w > 1.0) {
+						tex_w = 1.0;
+					}
+					color dc = color(tex_w, 0, 0, 0);
+					db->setDepth(j, i, tex_w);
+
+				}
 				//Draw(j, i, tex->SampleGlyph(tex_u / tex_w, tex_v / tex_w), tex->SampleColour(tex_u / tex_w, tex_v / tex_w));
 					//pDepthBuffer[i * ScreenWidth() + j] = tex_w;
 				//}
+
 
 				t += tstep;
 			}
@@ -397,7 +417,23 @@ void renderer::fillTriangleTex(int x1, int y1, float u1, float v1, float w1, int
 
 				//if (tex_w > pDepthBuffer[i * ScreenWidth() + j])
 			//	{
-				bb->setPixel(j, i, map->getPixUV(tex_u / tex_w, tex_v / tex_w, 1.0f).mult(col));
+				float pz = ((float)db->getDepth(j, i));
+
+				if (tex_w > pz) {
+					color texc = map->getPixUV(tex_u / tex_w, tex_v / tex_w);
+
+
+
+					bb->setPixel(j, i, texc.mult(col));
+
+					if (tex_w > 1.0) {
+						tex_w = 1.0;
+					}
+					color dc = color(tex_w, 0, 0, 0);
+					db->setDepth(j, i, tex_w);
+
+				}
+				//bb->setPixel(j, i, map->getPixUV(tex_u / tex_w, tex_v / tex_w, 1.0f).mult(col));
 				//bb->setPixel(j, i, col);
 
 
@@ -660,7 +696,7 @@ void renderer::endRender() {
 		{
 
 			color col = tp.c0;
-			col = color(1, 1, 1,1 );
+			//col = color(1, 1, 1,1 );
 			fillTriangleTex(tp.p0.x, tp.p0.y,tp.t0.x,tp.t0.y,tp.t0.w,  tp.p1.x, tp.p1.y,tp.t1.x,tp.t1.y,tp.t1.w, tp.p2.x, tp.p2.y,tp.t2.x,tp.t2.y,tp.t2.w,tp.map, col);
 			//FillTriangle(t.p[0].x, t.p[0].y, t.p[1].x, t.p[1].y, t.p[2].x, t.p[2].y, t.sym, t.col);
 			//DrawTriangle(t.p[0].x, t.p[0].y, t.p[1].x, t.p[1].y, t.p[2].x, t.p[2].y, PIXEL_SOLID, FG_BLACK);

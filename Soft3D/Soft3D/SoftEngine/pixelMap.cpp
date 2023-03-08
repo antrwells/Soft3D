@@ -4,7 +4,48 @@
 #include "stb_image.h"
 pixelMap::pixelMap(std::string path) {
 
-	m_Data  = (char*)stbi_load(path.c_str(), &m_Width, &m_Height, &m_Channels, 0);
+	
+	auto np  = (unsigned char*)stbi_load(path.c_str(), &m_Width, &m_Height, &m_Channels, 3);
+
+	m_Data = (float*)malloc(m_Width * m_Height * m_Channels * 4);
+
+	for (int y = 0; y < m_Height; y++) {
+		for (int x = 0; x < m_Width; x++) {
+
+			int loc = y * m_Width * m_Channels;
+			loc = loc + (x * m_Channels);
+			float r, g, b;
+			r = (float)np[loc];
+			g = (float)np[loc + 1];
+			b = (float)np[loc + 2];
+
+			//r = r + 128;
+			//g = g + 128;
+			//b = b + 128;
+
+
+
+			float fr, fg, fb;
+
+			fr = (float)(r) / 255.0f;
+			fg = (float)(g) / 255.0f;
+			fb = (float)(b) / 255.0f;
+
+			if (fr < 0 || fr>1 || fg < 0 || fg>1 || fb < 0 || fb>1)
+			{
+				int aa = 5;
+			}
+
+			
+			m_Data[loc] = fr;
+			m_Data[loc + 1] = fg;
+			m_Data[loc + 2] = fb;
+
+			int aa = 5;
+
+		}
+	}
+
 	if (m_Data == NULL) {
 		printf("Error in loading the image\n");
 		exit(1);
@@ -18,12 +59,15 @@ pixelMap::pixelMap(std::string path) {
 pixelMap::pixelMap(int w, int h,int channels) 
 {
 
-		m_Data = (char*)malloc(w * h * channels);
+		m_Data = (float*)malloc(w * h * channels*4);
 
 		m_Channels = channels;
 
 		m_Width = w;
 		m_Height = h;
+
+
+
 		glEnable(GL_TEXTURE_2D);
 		glGenTextures(1, &m_DisplayHandle);
 		glBindTexture(GL_TEXTURE_2D, m_DisplayHandle);
@@ -36,7 +80,7 @@ pixelMap::pixelMap(int w, int h,int channels)
 			form = GL_R;
 		}
 
-		glTexImage2D(GL_TEXTURE_2D, 0, form, m_Width, m_Height, 0, form, GL_UNSIGNED_BYTE,(const void*)m_Data);
+		glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB32F, m_Width, m_Height, 0, form,GL_FLOAT,(const void*)m_Data);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -57,11 +101,15 @@ void pixelMap::setPixel(int x, int y, color col) {
 	}
 	if (m_Channels == 3) {
 
-		int loc = (y * m_Width *m_Channels )+ (x * m_Channels);
+		int loc = (y * m_Width * m_Channels) + (x * m_Channels);
+	
+		m_Data[loc] = col.r;
+		m_Data[loc + 1] = col.g;
+		m_Data[loc + 2] = col.b;
 
-		m_Data[loc] = (char)(col.r * 255);
-		m_Data[loc + 1] = (char)(col.g * 255);
-		m_Data[loc + 2] = (char)(col.b * 255);
+		//m_Data[loc + 1] = (char)(col.g * 255);
+		//m_Data[loc + 2] = (char)(col.b * 255);
+
 
 	}
 	else if (m_Channels == 4)
@@ -75,8 +123,14 @@ void pixelMap::setPixel(int x, int y, color col) {
 	}
 	else if (m_Channels == 1)
 	{
+		if (col.r < 0 || col.r>1)
+		{
+			int vv = 5;
+		}
 		int loc = (y * m_Width * m_Channels) + (x * m_Channels);
-		m_Data[loc] = (char)(col.r * 255);
+		char val = (char)(col.r * 255);
+		m_Data[loc] = val;
+
 	}
 
 
@@ -85,13 +139,23 @@ void pixelMap::setPixel(int x, int y, color col) {
 color pixelMap::getPixel(int x, int y) {
 
 	int loc = (y * m_Width * m_Channels) + (x * m_Channels);
+
 	color r;
 
 	if (m_Channels == 3)
 	{
-		r.r = ((float)m_Data[loc]) / 255.0f;
-		r.g = ((float)m_Data[loc + 1]) / 255.0f;
-		r.b = ((float)m_Data[loc + 2]) / 255.0f;
+		
+		float cr, cg, cb;
+
+		cr = m_Data[loc];
+		cg = m_Data[loc + 1];
+		cb = m_Data[loc + 2];
+		if (cr < 0 || cr>1)
+		{
+			int aa = 5;
+		}
+		return color(cr, cg, cb);
+
 	}
 	else if (m_Channels == 4) {
 		r.r = ((float)m_Data[loc]) / 255.0f;
@@ -102,6 +166,7 @@ color pixelMap::getPixel(int x, int y) {
 	else if (m_Channels == 1) {
 
 		r.r = ((float)m_Data[loc]) / 255.0f;
+
 
 	}
 
@@ -114,6 +179,7 @@ void pixelMap::fill(color col) {
 	for (int y = 0; y < m_Height; y++) {
 		for (int x = 0; x < m_Width; x++) {
 
+	
 			setPixel(x, y, col);
 
 		}
@@ -132,9 +198,7 @@ void pixelMap::Display(int x, int y, int w, int h) {
 	if (m_Channels == 1) {
 		form = GL_R;
 	}
-
-	glTexImage2D(GL_TEXTURE_2D, 0, form, m_Width, m_Height, 0, form, GL_UNSIGNED_BYTE, (const void*)m_Data);
-
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, m_Width, m_Height, 0, form, GL_FLOAT, (const void*)m_Data);
 	glColor4f(1, 1, 1, 1);
 
 	glBegin(GL_QUADS);
@@ -184,6 +248,9 @@ color pixelMap::getPixUV(float u, float v, float w) {
 	if (x >= m_Width) x = m_Width - 1;
 	if (y >= m_Height) y = m_Height - 1;
 
-	return getPixel(x, y);
+	auto mm = getPixel(x, y);
+
+	//return getPixel(x, y);
+	return mm;
 
 }

@@ -5,7 +5,7 @@
 #include <glad/gl.h>
 #include "SoftTypes.h"
 class pixelMap;
-
+class depthBuffer;
 
 class SoftApp
 {
@@ -18,7 +18,7 @@ public:
 	void Run();
 
 	pixelMap* getBackBuffer();
-	pixelMap* getDepthBuffer();
+	depthBuffer* getDepthBuffer();
 
 	static SoftApp* m_This;
 
@@ -34,7 +34,7 @@ private:
 	GLFWwindow* m_Window;
 
 	pixelMap* m_ColorBuffer;
-	pixelMap* m_DepthBuffer;
+	depthBuffer* m_DepthBuffer;
 	pixelMap* m_StencilBuffer;
 
 	color m_BackColor;
