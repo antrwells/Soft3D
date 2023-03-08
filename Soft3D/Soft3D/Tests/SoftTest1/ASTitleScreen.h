@@ -22,6 +22,8 @@ private:
     Texture2D* m_Title;
     float alpha = 0.0f;
     Channel* m_SongChan = nullptr;
+    int showTime = 0;
+    bool waitkey = false;
 };
 
 

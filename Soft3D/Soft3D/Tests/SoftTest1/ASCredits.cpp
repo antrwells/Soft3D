@@ -6,11 +6,15 @@
 #include "AudioSystem.h"
 #include "Channel.h"
 #include <random>
+#include "gameInput.h"
+#include "ASMainMenu.h"
+#include "mathhelper.h"
 void ASCredits::Init() {
 
 	m_Bleep = AudioSystem::ThisAudio->LoadSound("data/sound/bleep1.wav");
 	m_Font = new kFont("data/fonts/aqua.pf");
 	m_Draw = new QuickDraw;
+	m_Font->setScale(1.4f);
 
 	m_Creds.push_back("F/A-18 INTERCEPTOR (tm)");
 	m_CredsCol.push_back(color(0, 0.3, 1));
@@ -44,7 +48,7 @@ void ASCredits::Init() {
 	m_CredsCol.push_back(color(0.8, 0.8, 0.8));
 	m_Creds.push_back("");
 	m_CredsCol.push_back(color(0, 0, 0));
-	m_Creds.push_back("HD REMAKE VERSION BY:");
+	m_Creds.push_back("OpenSource HD REMAKE VERSION BY:");
 	m_CredsCol.push_back(color(1, 0.5, 0));
 	m_Creds.push_back("ANTHONY WELLS");
 	m_CredsCol.push_back(color(0, 1, 1));
@@ -58,14 +62,6 @@ void ASCredits::Init() {
 	
 }
 
-float randomFloatInRange(float min, float max)
-{
-	std::random_device rd;  // obtain a random number from hardware
-	std::mt19937 eng(rd()); // seed the generator
-	std::uniform_real_distribution<float> distr(min, max); // define the range
-
-	return distr(eng); // generate the random float value
-}
 
 void ASCredits::nextCred() {
 
@@ -82,6 +78,17 @@ void ASCredits::nextCred() {
 }
 
 void ASCredits::Update() {
+
+	if (gameInput::anyKeyPressed)
+	{
+		waitKey = true;
+	}
+	else {
+		if (waitKey) {
+			SoftApp::m_This->PopState();
+			SoftApp::m_This->PushState(new ASMainMenu);
+		}
+	}
 
 }
 
@@ -123,7 +130,7 @@ void ASCredits::RenderAfter3D() {
 
 		int time = clock();
 		if (time > nextChar) {
-			nextChar = time + 50;
+			nextChar = time + 35;
 			curChar++;
 			auto chan = AudioSystem::ThisAudio->PlaySound(m_Bleep);
 			float p = 1.0f;

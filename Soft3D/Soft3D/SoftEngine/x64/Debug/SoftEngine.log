@@ -1,7 +1,20 @@
-﻿  kFont.cpp
-C:\Soft3D\Soft3D\SoftEngine\kFont.cpp(131,41): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\kFont.cpp(160,111): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\kFont.cpp(160,63): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\kFont.cpp(160,18): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+﻿  QuickDraw.cpp
+C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(185,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(197,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(209,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\QuickDraw.cpp(15,86): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\QuickDraw.cpp(15,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\QuickDraw.cpp(369,45): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\QuickDraw.cpp(369,28): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\QuickDraw.cpp(390,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\QuickDraw.cpp(572,45): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\QuickDraw.cpp(572,28): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\QuickDraw.cpp(584,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\QuickDraw.cpp(748,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\QuickDraw.cpp(748,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\QuickDraw.cpp(748,27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Soft3D\Soft3D\SoftEngine\QuickDraw.cpp(748,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  mathhelper.cpp
+  Generating Code...
 fmod_vc.lib(fmod.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc142-mtd.lib(assimp-vc142-mtd.dll); second definition ignored
   SoftEngine.vcxproj -> C:\Soft3D\Soft3D\x64\Debug\SoftEngine.lib

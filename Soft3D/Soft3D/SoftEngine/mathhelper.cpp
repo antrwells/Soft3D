@@ -1,4 +1,5 @@
 #include "mathhelper.h"
+#include <random>
 glm::vec2 rotate(glm::vec2 p, float r)
 {
 	float theta = glm::radians(r);
@@ -59,4 +60,13 @@ glm::vec2 reflect_vector(glm::vec2 vector, glm::vec2 normal) {
 	glm::vec2 scaledNormal = normal * 2.0f * dotProduct;
 	// Subtract the scaled normal from the original vector
 	return vector - scaledNormal;
+}
+
+float randomFloatInRange(float min, float max)
+{
+	std::random_device rd;  // obtain a random number from hardware
+	std::mt19937 eng(rd()); // seed the generator
+	std::uniform_real_distribution<float> distr(min, max); // define the range
+
+	return distr(eng); // generate the random float value
 }

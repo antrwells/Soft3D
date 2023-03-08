@@ -139,6 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ASCredits.cpp" />
+    <ClCompile Include="ASMainMenu.cpp" />
     <ClCompile Include="ASTitleScreen.cpp" />
     <ClCompile Include="SoftTest1.cpp" />
     <ClCompile Include="Test1.cpp" />
@@ -148,17 +149,27 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ASCredits.h" />
+    <ClInclude Include="ASMainMenu.h" />
     <ClInclude Include="ASTitleScreen.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Test1.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="InterceptorHD.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="data\icon.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\..\packages\glfw.3.3.8\build\native\glfw.targets" Condition="Exists('..\..\packages\glfw.3.3.8\build\native\glfw.targets')" />
+    <Import Project="..\..\packages\glm.0.9.9.800\build\native\glm.targets" Condition="Exists('..\..\packages\glm.0.9.9.800\build\native\glm.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\glfw.3.3.8\build\native\glfw.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\glfw.3.3.8\build\native\glfw.targets'))" />
+    <Error Condition="!Exists('..\..\packages\glm.0.9.9.800\build\native\glm.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\glm.0.9.9.800\build\native\glm.targets'))" />
   </Target>
 </Project>

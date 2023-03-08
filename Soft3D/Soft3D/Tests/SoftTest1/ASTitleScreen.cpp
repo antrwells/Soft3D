@@ -11,6 +11,7 @@
 #include "SoftApp.h"
 #include "Channel.h"
 #include "ASCredits.h"
+#include <time.h>
 void ASTitleScreen::Init() {
 
 	m_Draw = new QuickDraw;
@@ -19,14 +20,34 @@ void ASTitleScreen::Init() {
 	auto song = AudioSystem::ThisAudio->LoadSound("data/music/title.mp3");
 	auto chan = AudioSystem::ThisAudio->PlaySound(song);
 	m_SongChan = chan;
+	showTime = clock() + 2500;
 }
 
 void ASTitleScreen::Update() {
 
 	if (alpha < 1.0f) {
-		alpha = alpha + 0.005f;
+	//	alpha = alpha + 0.005f;
 	}
-	if (m_SongChan->Playing() == false || gameInput::anyKeyPressed)
+
+	int ct = clock();
+	if (ct > showTime) {
+		alpha = alpha + 0.15f;
+		if (alpha > 1) alpha = 1.0;
+	}
+
+	if (gameInput::anyKeyPressed)
+	{
+		waitkey = true;
+	}
+	else {
+		if (waitkey) {
+			SoftApp::m_This->PopState();
+			m_SongChan->Stop();
+			SoftApp::m_This->PushState(new ASCredits);
+		}
+	}
+
+	if (m_SongChan->Playing() == false)
 	{
 		m_SongChan->Stop();
 		SoftApp::m_This->PopState();

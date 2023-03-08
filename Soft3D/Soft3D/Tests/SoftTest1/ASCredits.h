@@ -28,5 +28,6 @@ private:
     int startY = 20;
     int topY = 20;
     Sound* m_Bleep = nullptr;
+    bool waitKey = false;
 };
 

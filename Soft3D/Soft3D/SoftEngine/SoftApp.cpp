@@ -29,6 +29,12 @@ SoftApp::SoftApp(int width, int height, std::string app) {
 	else {
 		printf("Successfully created glfw window.\n");
 	}
+
+	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+	//glfwSetWindowMonitor(window, monitor, 0, 0, width, height, 60);
+
+
 	glfwMakeContextCurrent(window);
 	gladLoadGL(glfwGetProcAddress);
 	m_Width = width;

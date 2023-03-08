@@ -1,13 +1,12 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (SoftTest1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  ASCredits.cpp
+  ASMainMenu.cpp
 C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(185,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(197,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(209,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Soft3D\Soft3D\Tests\SoftTest1\ASCredits.cpp(16,39): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Soft3D\Soft3D\Tests\SoftTest1\ASCredits.cpp(18,39): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Soft3D\Soft3D\Tests\SoftTest1\ASCredits.cpp(24,43): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Soft3D\Soft3D\Tests\SoftTest1\ASCredits.cpp(30,43): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Soft3D\Soft3D\Tests\SoftTest1\ASCredits.cpp(37,43): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Soft3D\Soft3D\Tests\SoftTest1\ASCredits.cpp(44,43): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Soft3D\Soft3D\Tests\SoftTest1\ASCredits.cpp(130,37): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Soft3D\Soft3D\Tests\SoftTest1\ASMainMenu.cpp(53,39): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Soft3D\Soft3D\Tests\SoftTest1\ASMainMenu.cpp(57,39): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Soft3D\Soft3D\Tests\SoftTest1\ASMainMenu.cpp(65,39): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Soft3D\Soft3D\Tests\SoftTest1\ASMainMenu.cpp(73,43): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Soft3D\Soft3D\Tests\SoftTest1\ASMainMenu.cpp(77,43): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Soft3D\Soft3D\Tests\SoftTest1\ASMainMenu.cpp(146,37): warning C4305: 'argument': truncation from 'double' to 'float'
   SoftTest1.vcxproj -> C:\Soft3D\Soft3D\x64\Debug\InterceptorHD.exe
