@@ -15,6 +15,9 @@ public:
 	mesh3D* getMesh(int id) {
 		return m_Meshes[id];
 	}
+	std::vector<mesh3D*> getMeshes() {
+		return m_Meshes;
+	}
 
 private:
 

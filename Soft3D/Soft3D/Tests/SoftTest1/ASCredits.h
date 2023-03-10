@@ -6,6 +6,8 @@
 class kFont;
 class Sound;
 class QuickDraw;
+class Texture2D;
+
 
 class ASCredits :
     public AppState
@@ -29,5 +31,7 @@ private:
     int topY = 20;
     Sound* m_Bleep = nullptr;
     bool waitKey = false;
+    Texture2D* m_BG = nullptr;
+ 
 };
 

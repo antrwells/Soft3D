@@ -114,7 +114,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\core\inc;C:\Soft3D\Soft3D\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Soft3D\Soft3D\Videon;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\core\inc;C:\Soft3D\Soft3D\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -122,8 +122,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>assimp-vc142-mtd.lib;fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\core\lib\x64;C:\Soft3D\Soft3D\packages\AssimpCpp.5.0.1.6\build\native\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;fmod_vc.lib;Videon.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Soft3D\Soft3D\x64\Debug;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\core\lib\x64;C:\Soft3D\Soft3D\packages\AssimpCpp.5.0.1.6\build\native\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -138,7 +138,9 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>C:\Soft3D\Soft3D\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Soft3D\Soft3D\Videon;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\core\inc;C:\Soft3D\Soft3D\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -148,8 +150,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>assimp-vc142-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Soft3D\Soft3D\packages\AssimpCpp.5.0.1.6\build\native\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;fmod_vc.lib;Videon.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Soft3D\Soft3D\x64\Debug;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\core\lib\x64;C:\Soft3D\Soft3D\packages\AssimpCpp.5.0.1.6\build\native\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -217,21 +219,18 @@
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="VFile.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\glfw.3.3.8\build\native\glfw.targets" Condition="Exists('..\packages\glfw.3.3.8\build\native\glfw.targets')" />
     <Import Project="..\packages\AssimpCpp.5.0.1.6\build\native\AssimpCpp.targets" Condition="Exists('..\packages\AssimpCpp.5.0.1.6\build\native\AssimpCpp.targets')" />
-    <Import Project="..\..\..\HDRemakes\Interceptor\InterceptorHD\packages\glm.0.9.9.800\build\native\glm.targets" Condition="Exists('..\..\..\HDRemakes\Interceptor\InterceptorHD\packages\glm.0.9.9.800\build\native\glm.targets')" />
+    <Import Project="..\packages\glfw.3.3.8\build\native\glfw.targets" Condition="Exists('..\packages\glfw.3.3.8\build\native\glfw.targets')" />
+    <Import Project="..\packages\glm.0.9.9.800\build\native\glm.targets" Condition="Exists('..\packages\glm.0.9.9.800\build\native\glm.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\glfw.3.3.8\build\native\glfw.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glfw.3.3.8\build\native\glfw.targets'))" />
     <Error Condition="!Exists('..\packages\AssimpCpp.5.0.1.6\build\native\AssimpCpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\AssimpCpp.5.0.1.6\build\native\AssimpCpp.targets'))" />
-    <Error Condition="!Exists('..\..\..\HDRemakes\Interceptor\InterceptorHD\packages\glm.0.9.9.800\build\native\glm.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\HDRemakes\Interceptor\InterceptorHD\packages\glm.0.9.9.800\build\native\glm.targets'))" />
+    <Error Condition="!Exists('..\packages\glfw.3.3.8\build\native\glfw.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glfw.3.3.8\build\native\glfw.targets'))" />
+    <Error Condition="!Exists('..\packages\glm.0.9.9.800\build\native\glm.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glm.0.9.9.800\build\native\glm.targets'))" />
   </Target>
 </Project>

@@ -124,7 +124,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Soft3D\Soft3D\include;C:\Soft3D\Soft3D\SoftEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\core\inc;C:\Soft3D\Soft3D\include;C:\Soft3D\Soft3D\SoftEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClCompile Include="ASCredits.cpp" />
     <ClCompile Include="ASMainMenu.cpp" />
+    <ClCompile Include="ASTest3D.cpp" />
     <ClCompile Include="ASTitleScreen.cpp" />
     <ClCompile Include="SoftTest1.cpp" />
     <ClCompile Include="Test1.cpp" />
@@ -150,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="ASCredits.h" />
     <ClInclude Include="ASMainMenu.h" />
+    <ClInclude Include="ASTest3D.h" />
     <ClInclude Include="ASTitleScreen.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Test1.h" />

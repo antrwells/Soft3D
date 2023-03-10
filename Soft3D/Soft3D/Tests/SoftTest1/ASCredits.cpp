@@ -9,12 +9,18 @@
 #include "gameInput.h"
 #include "ASMainMenu.h"
 #include "mathhelper.h"
+
+
 void ASCredits::Init() {
 
 	m_Bleep = AudioSystem::ThisAudio->LoadSound("data/sound/bleep1.wav");
 	m_Font = new kFont("data/fonts/aqua.pf");
 	m_Draw = new QuickDraw;
+	m_BG = new Texture2D("data/image/bg/bg1.jpg");
 	m_Font->setScale(1.4f);
+	//mVideo = new VideoDecoder;
+	//mVideo->OpenVideo("data/vid/bg/bg1.mov");
+
 
 	m_Creds.push_back("F/A-18 INTERCEPTOR (tm)");
 	m_CredsCol.push_back(color(0, 0.3, 1));
@@ -94,6 +100,16 @@ void ASCredits::Update() {
 
 void ASCredits::RenderAfter3D() {
 
+
+	m_Draw->Begin();
+
+	m_Draw->DrawRectRot(m_BG, Rect(0, 0, SoftApp::m_This->getWinWidth(), SoftApp::m_This->getWinHeight()), Color(1, 1, 1, 1), nullptr, 0, 1.0f);
+
+	m_Draw->End();
+
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
 	if (curCred > 0)
 	{
 		int dy = topY;
@@ -155,7 +171,6 @@ void ASCredits::RenderAfter3D() {
 		tr = cur_col.r;
 		tg = cur_col.g;
 		tb = cur_col.b;
-
 
 
 		m_Font->drawText(ps.c_str(), dx-50, cY,tr,tg,tb, 1, m_Draw);

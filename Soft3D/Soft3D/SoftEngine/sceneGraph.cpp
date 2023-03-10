@@ -14,7 +14,6 @@ sceneGraph::sceneGraph() {
 void sceneGraph::render() {
 
 	auto l1 = m_Lights[0];
-
 	renderer::beginRender();
 	m_RootNode->render(m_Cam,l1);
 	renderer::endRender();

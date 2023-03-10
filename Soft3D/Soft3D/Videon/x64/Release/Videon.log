@@ -1,0 +1,7 @@
+﻿  Videon.cpp
+  VidNative.cpp
+C:\Soft3D\Soft3D\Videon\VidNative.cpp(69,1): warning C4005: 'REINTERPRET_CAST': macro redefinition
+C:\Soft3D\Soft3D\Videon\VidNative.cpp(65,1): message : see previous definition of 'REINTERPRET_CAST'
+C:\Soft3D\Soft3D\Videon\VidNative.cpp(70,1): warning C4005: 'STATIC_CAST': macro redefinition
+C:\Soft3D\Soft3D\Videon\VidNative.cpp(66,1): message : see previous definition of 'STATIC_CAST'
+C:\Soft3D\Soft3D\Videon\VidNative.cpp(1170,1): fatal  error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?

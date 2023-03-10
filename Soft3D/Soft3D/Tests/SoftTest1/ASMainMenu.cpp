@@ -8,6 +8,8 @@
 #include "Channel.h"
 #include <random>
 #include "mathhelper.h"
+#include "Texture2D.h"
+
 void ASMainMenu::Init() {
 
 	m_Bleep = AudioSystem::ThisAudio->LoadSound("data/sound/bleep1.wav");
@@ -16,11 +18,11 @@ void ASMainMenu::Init() {
 	m_Font->setScale(1.4f);
 
 	m_Creds.push_back("F/A 18 INTERCEPTOR(tm)");
-	m_CredsCol.push_back(color(0, 0.5, 1.0));
+	m_CredsCol.push_back(color(1, 0.5, 1.0));
 	m_Creds.push_back("");
 	m_CredsCol.push_back(color(0, 0, 0));
 
-	m_Creds.push_back("SELECT");
+	m_Creds.push_back("SELECT:");
 	m_CredsCol.push_back(color(0.5, 0.5, 0.5));
 
 	m_Creds.push_back("");
@@ -29,20 +31,20 @@ void ASMainMenu::Init() {
 	m_Creds.push_back("1 ... DEMO");
 	m_CredsCol.push_back(color(0, 1, 0));
 
-	m_Creds.push_back("2 .. FREE FLIGHT, NO ENEMY CONFRONTATION");
+	m_Creds.push_back("2 ... FREE FLIGHT, NO ENEMY CONFRONTATION");
 	m_CredsCol.push_back(color(0, 1, 0));
 
 	m_Creds.push_back("");
 	m_CredsCol.push_back(color(0, 0, 0));
 
 	m_Creds.push_back("3 ... TRAINING: DEMO OF MANEUVERS");
-	m_CredsCol.push_back(color(0, 0.5, 1.0));
+	m_CredsCol.push_back(color(1, 1, 1.0));
 
 	m_Creds.push_back("4 ... TRAINING: PRACTICE MANEUVERS");
-	m_CredsCol.push_back(color(0, 0.5, 1.0));
+	m_CredsCol.push_back(color(1, 1, 1.0));
 
 	m_Creds.push_back("5 ... QUALIFICATION: REQUIRED FOR MISSIONS");
-	m_CredsCol.push_back(color(0, 0.5, 1.0));
+	m_CredsCol.push_back(color(1,1, 1.0));
 
 
 	m_Creds.push_back("");
@@ -50,11 +52,11 @@ void ASMainMenu::Init() {
 
 
 	m_Creds.push_back("6 ... SELECTABLE MISSIONS");
-	m_CredsCol.push_back(color(1, 0.3, 0));
+	m_CredsCol.push_back(color(0,1, 1));
 
 
 	m_Creds.push_back("7 ... NEXT ACTIVE ADVANCED MISSION");
-	m_CredsCol.push_back(color(1, 0.3, 0));
+	m_CredsCol.push_back(color(0, 1,1));
 
 
 	m_Creds.push_back("");
@@ -62,7 +64,7 @@ void ASMainMenu::Init() {
 
 
 	m_Creds.push_back("8 ... YOUR CURRENT FLIGHT LOG STATISTICS");
-	m_CredsCol.push_back(color(1, 0.6, 0));
+	m_CredsCol.push_back(color(0, 1, 1));
 
 
 	m_Creds.push_back("");
@@ -73,14 +75,11 @@ void ASMainMenu::Init() {
 	m_CredsCol.push_back(color(0.6, 0.6, 0.6));
 
 
-	m_Creds.push_back("SHIFT ESC .... RETURNS YOU TO THIS MENU");
-	m_CredsCol.push_back(color(0.6, 0.6, 0.6));
-
 
 
 	nextCred();
 
-
+	m_BG = new Texture2D("data/image/bg/bg2.jpg");
 }
 
 void ASMainMenu::nextCred() {
@@ -103,6 +102,14 @@ void ASMainMenu::Update() {
 
 void ASMainMenu::RenderAfter3D() {
 
+	m_Draw->Begin();
+
+	m_Draw->DrawRectRot(m_BG, Rect(0, 0, SoftApp::m_This->getWinWidth(), SoftApp::m_This->getWinHeight()), Color(1, 1, 1, 1), nullptr, 0, 1.0f);
+
+	m_Draw->End();
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
 	if (curCred > 0)
 	{
 		int dy = topY;
@@ -111,7 +118,7 @@ void ASMainMenu::RenderAfter3D() {
 			color ps_c = m_CredsCol[i];
 			int dx = 0;
 			dy = dy + 35;
-			dx = 100;// SoftApp::m_This->getWinWidth() / 2;
+			dx = 130;// SoftApp::m_This->getWinWidth() / 2;
 			int tw = m_Font->getWidth(ps.c_str());
 			//dx = dx - tw / 2;
 			float tr, tg, tb;
@@ -150,7 +157,7 @@ void ASMainMenu::RenderAfter3D() {
 		std::string cur = m_Creds[curCred];
 		color cur_col = m_CredsCol[curCred];
 
-		dx = 100;// SoftApp::m_This->getWinWidth() / 2;
+		dx = 130;// SoftApp::m_This->getWinWidth() / 2;
 		int tw = m_Font->getWidth(cur.c_str());
 		//dx = dx - tw / 2;
 		std::string ps = "";

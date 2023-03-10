@@ -29,7 +29,8 @@ void mesh3D::render(matrix4 mat,nodeCamera* cam,nodeLight* l) {
 	for (int tri = 0; tri < triangles.size(); tri++) {
 
 		auto t = triangles[tri];
-		m_Renderer->renderTriangle(vertices[t.v0],vertices[t.v1],vertices[t.v2],mat,cam, l,m_ColorMap, color(1, 1, 1, 1));
+		color col(1, 1, 1, 1);
+		m_Renderer->renderTriangle(vertices[t.v0],vertices[t.v1],vertices[t.v2],mat,cam, l,m_ColorMap, m_Color);
 
 	}
 

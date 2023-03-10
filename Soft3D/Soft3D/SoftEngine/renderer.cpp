@@ -1,27 +1,35 @@
 #include "renderer.h"
 #include "SoftApp.h"
+#include <iostream>
 #include "pixelMap.h"
 #include "nodeCamera.h"
 #include "nodeLight.h"
 #include <algorithm>
 #include <list>
 #include "pixelMap.h"
+#include <chrono>
 #include "depthBuffer.h"
+#include <windows.h>
+
+
+const int RenderThreads = 2;
 
  renderer::renderer() {
 
 	 m_Projection = matrix4();
 	 m_Projection.toProjection(70, (float)SoftApp::m_This->getHeight() / (float)SoftApp::m_This->getWidth(), 0.00001, 20);
+	 mThis = this;
 
 }
 
-void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 model_mat,nodeCamera* cam,nodeLight* light,pixelMap* pix, color col) {
+void renderer::renderTriangle(vertex& v0,vertex& v1,vertex& v2,matrix4& model_mat,nodeCamera* cam,nodeLight* light,pixelMap* pix, color& col) {
 
 	int sw = SoftApp::m_This->getWidth();
 	int sh = SoftApp::m_This->getHeight();
 
-
+	
 	vertex pv0, pv1, pv2;
+
 	
 	pv0.pos = model_mat.multiply(v0.pos);
 	pv1.pos = model_mat.multiply(v1.pos);
@@ -80,11 +88,13 @@ void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 model_mat,no
 
 	normal.normalize();
 
+
+
 	camPos = v3d(0, 0, 0);
 	v3d camRay = pv0.pos.minus(camPos);
 
 
-
+	
 
 	if (normal.dot(camRay)<0.0f)
 	{
@@ -95,11 +105,21 @@ void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 model_mat,no
 		light_dir.z = -light_dir.z;
 		light_dir.normalize();
 
-		float dp = std::max(0.01f, light_dir.dot(l_normal));
+
+		l_normal = pv0.normal.add(pv1.normal).add(pv2.normal);
+		l_normal = normal.div(3.0f);
+		l_normal.normalize();
+
+
+		float dp = light_dir.dot(l_normal);
+		if (dp < 0) dp = 0;
 	
 		int nClippedTriangles = 0;
 		rtri clipped[2];
+		
 		nClippedTriangles = Triangle_ClipAgainstPlane({ 0.0f, 0.0f, 0.1f }, { 0.0f, 0.0f, 1.0f }, triv, clipped[0], clipped[1]);
+
+		
 
 		for (int n = 0; n < nClippedTriangles; n++)
 		{
@@ -162,12 +182,17 @@ void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 model_mat,no
 			tp.p2.x *= 0.5f * (float)sw;
 			tp.p2.y *= 0.5f * (float)sh;
 			tp.map = clipped[n].map;
-
-			col = col.mult(dp);
+			
+		
 
 			tp.c0 = col;
-			render_tris.push_back(tp);
+			tp.c0.r *= dp;
+			tp.c0.g *= dp;
+			tp.c0.b *= dp;
+			//return;
 
+			render_tris.push_back(tp);
+			
 			//fillTriangle(tp.p0.x, tp.p0.y, tp.p1.x, tp.p1.y, tp.p2.x, tp.p2.y, col);
 			//col = color(0, 0, 0, 0);
 
@@ -179,6 +204,7 @@ void renderer::renderTriangle(vertex v0,vertex v1,vertex v2,matrix4 model_mat,no
 				
 
 		}
+		//printf("RTRI:%d\n", render_tris.size());
 
 
 		/*
@@ -685,9 +711,29 @@ void renderer::beginRender() {
 
 }
 
+void th_renderThread(renderer* render,RenderThread *tr,int thread_id)
+{
+	
+
+	//printf("Thread:%d\n", thread_id);
+	for (auto& tp : tr->tris) {
+
+		color col = tp.c0;
+		render->fillTriangleTex(tp.p0.x, tp.p0.y, tp.t0.x, tp.t0.y, tp.t0.w, tp.p1.x, tp.p1.y, tp.t1.x, tp.t1.y, tp.t1.w, tp.p2.x, tp.p2.y, tp.t2.x, tp.t2.y, tp.t2.w, tp.map, col);
+
+	}
+
+	tr->done = true;
+
+
+}
+
+
 void renderer::endRender() {
 	int sw = SoftApp::m_This->getWidth();
 	int sh = SoftApp::m_This->getHeight();
+
+	std::vector<rtri> final_tris;
 
 //	for (int i = 0; i < render_tris.size(); i++) {
 	for(auto &triToRaster : render_tris)
@@ -735,10 +781,11 @@ void renderer::endRender() {
 		}
 
 
+
 		// Draw the transformed, viewed, clipped, projected, sorted, clipped triangles
 		for (auto& tp : listTriangles)
 		{
-
+			//final_tris.push_back(tp);
 			color col = tp.c0;
 			//col = color(1, 1, 1,1 );
 			fillTriangleTex(tp.p0.x, tp.p0.y,tp.t0.x,tp.t0.y,tp.t0.w,  tp.p1.x, tp.p1.y,tp.t1.x,tp.t1.y,tp.t1.w, tp.p2.x, tp.p2.y,tp.t2.x,tp.t2.y,tp.t2.w,tp.map, col);
@@ -752,7 +799,99 @@ void renderer::endRender() {
 
 
 	}
+	
+	return;
+	int num_tris = final_tris.size() / RenderThreads;
+
+	renderThreads.clear();
+
+	for (int i = 0; i < RenderThreads; i++) {
+
+		auto rt = new RenderThread;
+
+		renderThreads.push_back(rt);
+
+	}
+
+	int tri_i = 0;
+	int rt_i = 0;
+
+	for (auto& tri : final_tris) {
+
+		auto rt = renderThreads[rt_i];
+
+		rt->tris.push_back(tri);
+
+		tri_i++;
+
+		if (tri_i >= num_tris) {
+			tri_i = 0;
+			rt_i++;
+			if (rt_i == RenderThreads) break;
+		}
+	}
+
+	for (int i = 0; i < renderThreads.size(); i++) {
+
+		auto rt = renderThreads[i];
+
+		rt->m_Thread=  std::thread(th_renderThread,mThis,rt, i);
+		
+	
+		DWORD_PTR dw = SetThreadAffinityMask(rt->m_Thread.native_handle(), DWORD_PTR(1) << (i+1));
+		if (dw == 0)
+		{
+			DWORD dwErr = GetLastError();
+			std::cerr << "SetThreadAffinityMask failed, GLE=" << dwErr << '\n';
+		}
+
+		//thr.detach();
+		//for (auto& tp : rt->tris)
+		//{
+		//	color col = tp.c0;
+
+		//	fillTriangleTex(tp.p0.x, tp.p0.y, tp.t0.x, tp.t0.y, tp.t0.w, tp.p1.x, tp.p1.y, tp.t1.x, tp.t1.y, tp.t1.w, tp.p2.x, tp.p2.y, tp.t2.x, tp.t2.y, tp.t2.w, tp.map, col);
+		//}
+
+	}
+
+	if (renderThreads.size() > 0) {
+
+		for (int i = 0; i < renderThreads.size(); i++) {
+			renderThreads[i]->m_Thread.join();
+			delete renderThreads[i];
+		}
+
+		return;
+		using namespace std::chrono_literals;
+		//int dc = 0;
+		while (true) {
+			int dc = 0;
+			//std::this_thread::sleep_for(1ms);
+
+			for (int i = 0; i < renderThreads.size(); i++) {
+
+				if (renderThreads[i]->done)
+				{
+					dc++;
+				}
+
+			}
+			if (dc == renderThreads.size()) {
+				for (int i = 0; i < renderThreads.size(); i++)
+				{
+					delete renderThreads[i];
+				}
+				break;
+			}
+		}
+		//int vv = 5;
+
+	}
 
 }
 
 std::vector<rtri> renderer::render_tris;
+std::vector<RenderThread*> renderer::renderThreads;
+std::mutex renderer::bufferLock;
+renderer* renderer::mThis = nullptr;

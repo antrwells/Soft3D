@@ -1,12 +1,19 @@
-﻿  SoftApp.cpp
+﻿  Importer.cpp
 C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(185,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(197,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Soft3D\Soft3D\SoftEngine\SoftTypes.h(209,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\SoftApp.cpp(74,22): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\SoftApp.cpp(75,22): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\SoftApp.cpp(93,23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\SoftApp.cpp(94,23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\SoftApp.cpp(95,33): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\SoftApp.cpp(96,33): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Soft3D\Soft3D\SoftEngine\SoftApp.cpp(143,31): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Soft3D\Soft3D\SoftEngine\Importer.cpp(28,20): warning C4018: '<': signed/unsigned mismatch
+C:\Soft3D\Soft3D\SoftEngine\Importer.cpp(35,20): warning C4018: '<': signed/unsigned mismatch
+C:\Soft3D\Soft3D\SoftEngine\Importer.cpp(58,29): warning C4018: '<': signed/unsigned mismatch
+C:\Soft3D\Soft3D\SoftEngine\Importer.cpp(77,25): warning C4018: '<': signed/unsigned mismatch
+fmod_vc.lib(fmod.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc142-mtd.lib(assimp-vc142-mtd.dll); second definition ignored
+Videon.lib(swscale-5.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc142-mtd.lib(assimp-vc142-mtd.dll); second definition ignored
+Videon.lib(swresample-3.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc142-mtd.lib(assimp-vc142-mtd.dll); second definition ignored
+Videon.lib(postproc-55.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc142-mtd.lib(assimp-vc142-mtd.dll); second definition ignored
+Videon.lib(avutil-56.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc142-mtd.lib(assimp-vc142-mtd.dll); second definition ignored
+Videon.lib(avformat-58.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc142-mtd.lib(assimp-vc142-mtd.dll); second definition ignored
+Videon.lib(avfilter-7.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc142-mtd.lib(assimp-vc142-mtd.dll); second definition ignored
+Videon.lib(avdevice-58.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc142-mtd.lib(assimp-vc142-mtd.dll); second definition ignored
+Videon.lib(avcodec-58.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc142-mtd.lib(assimp-vc142-mtd.dll); second definition ignored
+Importer.obj : warning LNK4006: "public: enum aiReturn __cdecl aiMaterial::Get(char const *,unsigned int,unsigned int,struct aiColor3D &)const " (?Get@aiMaterial@@QEBA?AW4aiReturn@@PEBDIIAEAUaiColor3D@@@Z) already defined in assimp-vc142-mtd.lib(assimp-vc142-mtd.dll); second definition ignored
   SoftEngine.vcxproj -> C:\Soft3D\Soft3D\x64\Release\SoftEngine.lib

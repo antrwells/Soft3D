@@ -18,12 +18,19 @@ public:
 	void setColorMap(pixelMap* map) {
 		m_ColorMap = map;
 	}
+	void setColor(color c) {
+		m_Color = c;
+	}
+	color getColor() {
+		return m_Color;
+	}
 private:
 
 	std::vector<vertex> vertices;
 	std::vector<triangle> triangles;
 	renderer* m_Renderer;
 	pixelMap* m_ColorMap = nullptr;
+	color m_Color;
 
 };
 

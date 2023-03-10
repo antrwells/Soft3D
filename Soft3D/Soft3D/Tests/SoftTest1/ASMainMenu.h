@@ -6,6 +6,7 @@
 class kFont;
 class Sound;
 class QuickDraw;
+class Texture2D;
 
 class ASMainMenu : public AppState
 {
@@ -25,8 +26,9 @@ private:
     int curCred = -1;
     int curChar = 0;
     int nextChar = 0;
-    int startY = 20;
-    int topY = 20;
+    int startY = 40;
+    int topY = 40;
     Sound* m_Bleep = nullptr;
+    Texture2D* m_BG = nullptr;
 };
 

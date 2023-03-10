@@ -8,12 +8,13 @@
 #include "AudioSystem.h"
 #include "QuickDraw.h"
 #include "Texture2D.h"
+#include "ASTest3D.h"
 #include "ASTitleScreen.h"
 void Test1::Init() {
 
-	InitRenderer(320,200);
+	InitRenderer(1024,768);
 
-	PushState(new ASTitleScreen);
+	PushState(new ASTest3D);
 
 	
 }
