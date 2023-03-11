@@ -161,6 +161,9 @@ void pixelMap::fill(color col) {
 void pixelMap::Display(int x, int y, int w, int h) {
 
 
+	glActiveTexture(GL_TEXTURE0);
+	glClientActiveTexture(GL_TEXTURE0);
+	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, m_DisplayHandle);
 	int form = GL_RGB;
 	if (m_Channels == 4) {

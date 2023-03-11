@@ -119,6 +119,7 @@ struct v3d
 struct vertex {
 
 	v3d pos;
+	v3d world_pos;
 	v3d tex_coord;
 	v3d color;
 	v3d normal;
@@ -318,8 +319,10 @@ struct rtri
 {
 	v3d p0, p1, p2;
 	v3d t0, t1, t2;
+	vertex v0, v1, v2;
 	color c0, c1, c2;
 	pixelMap* map;
+	matrix4 world, view;
 };
 
 int Triangle_ClipAgainstPlane(v3d plane_p, v3d plane_n, rtri& in_tri, rtri& out_tri1, rtri& out_tri2);

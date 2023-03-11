@@ -3,6 +3,8 @@
 #include "nodeCamera.h"
 #include "nodeLight.h"
 #include <vector>
+#include "renderer.h"
+#include "rendererNitro.h"
 
 class sceneGraph
 {
@@ -28,6 +30,7 @@ private:
 	nodeCamera* m_Cam;
 	node* m_RootNode;
 	std::vector<nodeLight*> m_Lights;
+	renderer* m_Renderer = nullptr;
 
 };
 

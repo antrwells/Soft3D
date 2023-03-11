@@ -14,7 +14,7 @@ public:
 	mesh3D();
 	void AddVertex(vertex vert);
 	void AddTriangle(triangle tri);
-	void render(matrix4 mat,nodeCamera* cam,nodeLight* light);
+	void render(renderer* rend,matrix4 mat,nodeCamera* cam,nodeLight* light);
 	void setColorMap(pixelMap* map) {
 		m_ColorMap = map;
 	}

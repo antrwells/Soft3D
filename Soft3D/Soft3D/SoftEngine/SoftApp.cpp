@@ -166,8 +166,9 @@ void SoftApp::Run() {
 		}
 		frames++;
 
-		glClearColor(0, 0, 0, 1.0f);
+		glClearColor(1, 0, 0, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_DEPTH_BUFFER_BIT);
 		m_ColorBuffer->fill(m_BackColor);
 		m_DepthBuffer->clear();
 

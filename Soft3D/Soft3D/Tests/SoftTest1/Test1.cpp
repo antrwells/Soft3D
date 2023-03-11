@@ -12,7 +12,7 @@
 #include "ASTitleScreen.h"
 void Test1::Init() {
 
-	InitRenderer(1024,768);
+	InitRenderer(800,600);
 
 	PushState(new ASTest3D);
 

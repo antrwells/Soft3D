@@ -12,7 +12,7 @@
 #include <windows.h>
 
 
-const int RenderThreads = 2;
+const int RenderThreads = 11;
 
  renderer::renderer() {
 
@@ -21,13 +21,16 @@ const int RenderThreads = 2;
 	 mThis = this;
 
 }
+ 
+
+
 
 void renderer::renderTriangle(vertex& v0,vertex& v1,vertex& v2,matrix4& model_mat,nodeCamera* cam,nodeLight* light,pixelMap* pix, color& col) {
 
 	int sw = SoftApp::m_This->getWidth();
 	int sh = SoftApp::m_This->getHeight();
 
-	
+//	printf("Rendered Tri\n");
 	vertex pv0, pv1, pv2;
 
 	
@@ -38,7 +41,8 @@ void renderer::renderTriangle(vertex& v0,vertex& v1,vertex& v2,matrix4& model_ma
 	pv1.tex_coord = v1.tex_coord;
 	pv2.tex_coord = v2.tex_coord;
 
-	
+	v3d mid_tri = pv0.pos.add(pv1.pos).add(pv2.pos);
+	mid_tri.div(3.0f);
 
 
 	v3d camPos = cam->getPos();
@@ -62,6 +66,10 @@ void renderer::renderTriangle(vertex& v0,vertex& v1,vertex& v2,matrix4& model_ma
 	normal.normalize();
 
 	l_normal = normal;
+
+	l_normal = pv0.normal.add(pv1.normal).add(pv2.normal);
+	l_normal = normal.div(3.0f);
+	l_normal.normalize();
 
 	auto cam_mat = cam->getWorldMat();
 	pv0.pos = cam_mat.multiply(pv0.pos);
@@ -100,15 +108,15 @@ void renderer::renderTriangle(vertex& v0,vertex& v1,vertex& v2,matrix4& model_ma
 	{
 
 		v3d light_dir = light->getPos();
-		light_dir.x = -light_dir.x;
-		light_dir.y = -light_dir.y;
-		light_dir.z = -light_dir.z;
+		//light_dir.x = -light_dir.x;
+		//light_dir.y = -light_dir.y;
+		//light_dir.z = -light_dir.z;
+
+		light_dir = light_dir.minus(mid_tri);
+
 		light_dir.normalize();
 
 
-		l_normal = pv0.normal.add(pv1.normal).add(pv2.normal);
-		l_normal = normal.div(3.0f);
-		l_normal.normalize();
 
 
 		float dp = light_dir.dot(l_normal);
@@ -204,6 +212,8 @@ void renderer::renderTriangle(vertex& v0,vertex& v1,vertex& v2,matrix4& model_ma
 				
 
 		}
+
+		int bb = 5;
 		//printf("RTRI:%d\n", render_tris.size());
 
 
@@ -516,6 +526,7 @@ void renderer::fillTriangleTex(int x1, int y1, float u1, float v1, float w1, int
 	}
 }
 
+/*
 void renderer::fillTriangle(int x1, int y1, int x2, int y2, int x3, int y3, color col)
 {
 	auto bb = SoftApp::m_This->getBackBuffer();
@@ -655,7 +666,9 @@ next:
 		if (y > y3) return;
 	}
 }
+*/
 
+/*
 void renderer::drawLine(int x1, int y1, int x2, int y2, color col) {
 
 	
@@ -703,13 +716,15 @@ void renderer::drawLine(int x1, int y1, int x2, int y2, color col) {
 	}
 }
 
-
+*/
 
 void renderer::beginRender() {
 
 	render_tris.clear();
+//	printf("Render Began\n");
 
 }
+
 
 void th_renderThread(renderer* render,RenderThread *tr,int thread_id)
 {
@@ -734,6 +749,8 @@ void renderer::endRender() {
 	int sh = SoftApp::m_This->getHeight();
 
 	std::vector<rtri> final_tris;
+
+//	printf("Render Ended\n");
 
 //	for (int i = 0; i < render_tris.size(); i++) {
 	for(auto &triToRaster : render_tris)
@@ -787,7 +804,7 @@ void renderer::endRender() {
 		{
 			//final_tris.push_back(tp);
 			color col = tp.c0;
-			//col = color(1, 1, 1,1 );
+
 			fillTriangleTex(tp.p0.x, tp.p0.y,tp.t0.x,tp.t0.y,tp.t0.w,  tp.p1.x, tp.p1.y,tp.t1.x,tp.t1.y,tp.t1.w, tp.p2.x, tp.p2.y,tp.t2.x,tp.t2.y,tp.t2.w,tp.map, col);
 			//FillTriangle(t.p[0].x, t.p[0].y, t.p[1].x, t.p[1].y, t.p[2].x, t.p[2].y, t.sym, t.col);
 			//DrawTriangle(t.p[0].x, t.p[0].y, t.p[1].x, t.p[1].y, t.p[2].x, t.p[2].y, PIXEL_SOLID, FG_BLACK);
@@ -801,6 +818,7 @@ void renderer::endRender() {
 	}
 	
 	return;
+
 	int num_tris = final_tris.size() / RenderThreads;
 
 	renderThreads.clear();
@@ -891,7 +909,9 @@ void renderer::endRender() {
 
 }
 
-std::vector<rtri> renderer::render_tris;
+
+//std::vector<rtri> renderer::render_tris;
+
 std::vector<RenderThread*> renderer::renderThreads;
 std::mutex renderer::bufferLock;
 renderer* renderer::mThis = nullptr;

@@ -175,6 +175,7 @@
     <ClInclude Include="QuickDraw.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="renderer.h" />
+    <ClInclude Include="rendererNitro.h" />
     <ClInclude Include="sceneGraph.h" />
     <ClInclude Include="ShaderEffect.h" />
     <ClInclude Include="SoftApp.h" />
@@ -210,6 +211,7 @@
     <ClCompile Include="QuickDraw.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="renderer.cpp" />
+    <ClCompile Include="rendererNitro.cpp" />
     <ClCompile Include="sceneGraph.cpp" />
     <ClCompile Include="ShaderEffect.cpp" />
     <ClCompile Include="SoftApp.cpp" />

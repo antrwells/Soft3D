@@ -741,6 +741,10 @@ void QuickDraw::End() {
 
 	}
 
+	glDisable(GL_CULL_FACE);
+	glDisable(GL_DEPTH_TEST);
+	mDrawBasic->Release();
+
 }
 
 void QuickDraw::DrawTex(int x, int y, int w, int h, Texture2D* tex, float r, float g, float b, float a) {

@@ -1,6 +1,7 @@
 #include "nodeEntity.h"
 #include "nodeCamera.h"
 #include "nodeLight.h"
+#include "renderer.h"
 
 nodeEntity::nodeEntity() {
 
@@ -17,7 +18,7 @@ void nodeEntity::AddMesh(mesh3D* mesh)
 
 float ang = 0;
 
-void nodeEntity::render(nodeCamera* cam,nodeLight* light) {
+void nodeEntity::render(renderer* rend,nodeCamera* cam,nodeLight* light) {
 
 
 
@@ -30,10 +31,10 @@ void nodeEntity::render(nodeCamera* cam,nodeLight* light) {
 
 		//auto final_mat = model_mat.multi(cam_mat);
 
-		mesh->render(model_mat,cam,light);
+		mesh->render(rend,model_mat,cam,light);
 
 	}
 	for (int i = 0; i < m_Nodes.size(); i++) {
-		m_Nodes[i]->render(cam,light);
+		m_Nodes[i]->render(rend,cam,light);
 	}
 }

@@ -9,6 +9,8 @@
 #include <random>
 #include "mathhelper.h"
 #include "Texture2D.h"
+#include "gameInput.h"
+#include "ASTest3D.h"
 
 void ASMainMenu::Init() {
 
@@ -101,6 +103,11 @@ void ASMainMenu::Update() {
 }
 
 void ASMainMenu::RenderAfter3D() {
+	
+	if (gameInput::anyKeyPressed)
+	{
+		SoftApp::m_This->PushState(new ASTest3D);
+	}
 
 	m_Draw->Begin();
 
